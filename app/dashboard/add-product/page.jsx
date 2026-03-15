@@ -34,7 +34,7 @@ export default async function AddProductPage() {
         </Link>
 
         {/* Right - User info and sign out */}
-        <div className="flex flex-col items-end gap-1.5">
+        <div className="flex flex-row items-center gap-4">
           <span className="text-[13px] text-[#6B7280]">{user.email}</span>
           <SignOutButton />
         </div>
