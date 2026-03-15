@@ -1,0 +1,39 @@
+import { categories } from "@/lib/config/catalogueCategories";
+import CategoryCard from "@/components/wholesaler/CategoryCard";
+
+export default function CatalogueSection() {
+  return (
+    <section className="px-6 py-12">
+      <div className="mx-auto max-w-7xl">
+        {/* Header */}
+        <div className="mb-8">
+          <h2 className="font-serif text-2xl text-celestique-dark md:text-3xl">
+            My Catalogue
+          </h2>
+          <p className="mt-2 text-sm text-celestique-muted">
+            See and manage all your catalogue categories from one place.
+          </p>
+        </div>
+
+        {/* Grid */}
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {categories.map((category) => (
+            <CategoryCard key={category.slug} category={category} />
+          ))}
+
+          {/* View All card */}
+          <div className="group flex aspect-square cursor-pointer items-center justify-center rounded-xl border-2 border-dashed border-celestique-border bg-white hover:border-celestique-dark hover:bg-celestique-cream transition-all duration-200">
+            <div className="text-center">
+              <p className="text-3xl text-celestique-muted group-hover:text-celestique-dark transition-colors duration-200">
+                →
+              </p>
+              <p className="mt-1 text-sm font-medium text-celestique-muted group-hover:text-celestique-dark transition-colors duration-200">
+                View All
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: var(--font-bodoni), ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-sans: var(--font-jost), ui-sans-serif, system-ui, sans-serif;
+  
+  --color-celestique-taupe: #E6DFD3;
+  --color-celestique-cream: #F5F2EB;
+  --color-celestique-dark: #111111;
+  --color-celestique-light: #ffffff;
+  --color-celestique-muted: #8C857B;
+  --color-celestique-border: #D9D0C5;
+}
+
+:root {
+  --background: var(--color-celestique-cream);
+  --foreground: var(--color-celestique-dark);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Minimalist Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.98); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+
+/* ── Shimmer skeleton ─────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.skeleton-shimmer {
+  position: relative;
+  overflow: hidden;
+  background: #E6DFD3;
+}
+.skeleton-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(245,242,235,0.7) 50%,
+    transparent 60%
+  );
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+/* ── Card entrance ────────────────────────────────────────── */
+@keyframes cardEnter {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.card-enter {
+  opacity: 0;
+}
+.card-enter.is-visible {
+  animation: cardEnter 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Utility for grain texture if needed */
+.bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+}
