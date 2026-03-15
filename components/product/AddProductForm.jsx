@@ -174,7 +174,7 @@ export function AddProductForm() {
   }
 
   return (
-    <div className="flex flex-col gap-10 w-full">
+    <div className="flex flex-col gap-10">
       {/* Section 1 - Page Title */}
       <div className="flex flex-col items-center text-center gap-2.5">
         <h1 className="text-4xl font-semibold text-[#111827]">Add new product</h1>
@@ -185,7 +185,7 @@ export function AddProductForm() {
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-10">
         {/* Section 2 - Product Image Upload */}
-        <div className="flex flex-row gap-[60px] items-start justify-center">
+        <div className="flex flex-row gap-[100px] items-start">
           {/* Left - Information */}
           <div className="flex flex-col gap-4 max-w-[360px]">
             <div className="flex items-center gap-3">

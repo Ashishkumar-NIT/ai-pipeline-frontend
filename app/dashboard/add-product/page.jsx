@@ -14,7 +14,7 @@ export default async function AddProductPage() {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       {/* Header */}
-      <header className="sticky top-0 z-50 flex items-center justify-between border-b border-[#e5e5e5] bg-white px-10 py-4">
+      <header className="sticky top-0 z-50 flex items-center justify-between border-b border-[#e5e5e5] bg-white px-10 py-2.5">
         {/* Left - Back to dashboard */}
         <Link
           href="/dashboard/wholesaler"
@@ -41,7 +41,7 @@ export default async function AddProductPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col items-center gap-10 max-w-[1100px] w-full mx-auto px-10 py-10">
+      <main className="flex-1 flex flex-col gap-10 max-w-[1100px] w-full mx-auto px-10 py-10">
         <AddProductForm />
       </main>
 
