@@ -1,8 +1,45 @@
 @import "tailwindcss";
 
+/* ── Local font faces ────────────────────────────────────── */
+@font-face {
+  font-family: "Cirka";
+  src: url("/fonts/TTF/Cirka-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Switzer";
+  src: url("/fonts/TTF/Switzer-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("/fonts/TTF/Gilroy-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("/fonts/TTF/Gilroy-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --font-serif: var(--font-bodoni), ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --font-sans: var(--font-jost), ui-sans-serif, system-ui, sans-serif;
+  --font-cirka: "Cirka", ui-serif, Georgia, serif;
+  --font-switzer: "Switzer", ui-sans-serif, system-ui, sans-serif;
+  --font-manrope: var(--font-manrope-var), "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-gilroy: "Gilroy", ui-sans-serif, system-ui, sans-serif;
   
   --color-celestique-taupe: #E6DFD3;
   --color-celestique-cream: #F5F2EB;
@@ -13,7 +50,7 @@
 }
 
 :root {
-  --background: var(--color-celestique-cream);
+  --background: #FEFEFE;
   --foreground: var(--color-celestique-dark);
 }
 
@@ -23,7 +60,7 @@
 }
 
 body {
-  background: var(--background);
+  background: #FEFEFE;
   color: var(--foreground);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;

@@ -1,45 +1,57 @@
-export default function StatCard({ icon, title, value, change }) {
-  // , positive = true
+function ChevronRight() {
   return (
-    <div className="group rounded-xl bg-white p-6 shadow-sm border border-celestique-border hover:shadow-md transition-all duration-200">
-      {/* Top row: icon + arrow */}
-      <div className="display-flex  items-start justify-between mb-5">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-celestique-cream text-celestique-muted">
-          {icon}
-        </div>
-        {/* <span
-          className={`flex items-center gap-1 text-xs font-medium 
-            ${positive ? "text-emerald-600" : "text-rose-500"}`}
-        >
-          {positive ? (
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
-              <path
-                d="M6 10V2M6 2L2 6M6 2l4 4"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          ) : (
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
-              <path
-                d="M6 2v8M6 10L2 6M6 10l4-4"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          )}
-          {change}
-        </span> */}
-      </div>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill="black"
+      viewBox="0 0 16 16"
+      className="text-gray-400"
+    >
+      <path
+        fillRule="evenodd"
+        d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
+      />
+    </svg>
+  );
+}
 
-      {/* Value */}
-      <p className="text-2xl font-semibold text-celestique-dark">{value}</p>
-      {/* Title */}
-      <p className="mt-1 text-sm text-celestique-muted">{title}</p>
+export function TopStatCard({ icon, title, badge }) {
+  return (
+    <div className="flex-1 flex flex-col justify-center rounded-xl border border-[#e5e5e5] bg-white py-5 px-6 relative">
+      <div className="flex flex-row items-center justify-between">
+        <div className="flex flex-row items-center gap-2.5">
+          <span className="text-gray-700 w-5 h-5 flex items-center justify-center">
+            {icon}
+          </span>
+          <span className="font-switzer text-s font-medium text-gray-700">{title}</span>
+          <span className="text-xs font-semibold px-1.5 py-0.5 bg-amber-100 text-amber-800 rounded-md">
+            {badge}
+          </span>
+        </div>
+        <ChevronRight />
+      </div>
+    </div>
+  );
+}
+
+export function BottomStatCard({ icon, title, value }) {
+  return (
+    <div className="flex-1 flex flex-col justify-center rounded-xl border border-[#e5e5e5] bg-white py-5 px-6 relative">
+      <div className="flex flex-row items-center justify-between">
+        <div className="flex flex-col">
+          <span className="font-cirka text-[48px] font-medium leading-tight text-gray-900">
+            {value}
+          </span>
+          <div className="flex flex-row items-center gap-2 mt-1">
+            <span className="text-gray-700 w-4 h-4 flex items-center justify-center">
+              {icon}
+            </span>
+            <span className="text-s font-medium text-gray-700">{title}</span>
+          </div>
+        </div>
+        <ChevronRight />
+      </div>
     </div>
   );
 }

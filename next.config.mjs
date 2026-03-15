@@ -1,6 +1,7 @@
 import { withSentryConfig } from '@sentry/nextjs';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  serverExternalPackages: ['@fastify/otel', '@opentelemetry/api-logs'],
   images: {
     remotePatterns: [
       {

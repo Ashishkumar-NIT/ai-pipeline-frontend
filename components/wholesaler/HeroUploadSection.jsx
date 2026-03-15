@@ -3,7 +3,7 @@ import UploadButton from "@/components/wholesaler/UploadButton";
 
 export default function HeroUploadSection() {
   return (
-    <section className="relative overflow-hidden  px-6 py-10 md:py-16">
+    <section className="relative overflow-hidden h-[282px]">
       {/* Background image */}
       <Image
         src="/image/heroframee.png"
@@ -12,14 +12,11 @@ export default function HeroUploadSection() {
         priority
         aria-hidden
         sizes="100vw"
-        className="object-cover"
+        className="object-cover [object-position:center_-30%]"
       />
-      {/* Content */}
-      <div className="relative z-10 mx-auto max-w-2xl text-center animate-fade-in-up">
-
-        <div className="mt-16">
-          <UploadButton />
-        </div>
+      {/* Content — use pb-X to move button up/down */}
+      <div className="relative z-10 h-full flex items-end justify-center pb-11">
+        <UploadButton />
       </div>
     </section>
   );

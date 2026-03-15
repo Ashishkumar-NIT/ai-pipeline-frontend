@@ -6,11 +6,11 @@ export default function CatalogueSection() {
     <section className="px-6 py-12">
       <div className="mx-auto max-w-7xl">
         {/* Header */}
-        <div className="mb-8">
-          <h2 className="font-serif text-2xl text-celestique-dark md:text-3xl">
+        <div className="mb-8 text-center">
+          <h2 className="font-cirka text-4xl text-celestique-dark md:text-3xl">
             My Catalogue
           </h2>
-          <p className="mt-2 text-sm text-celestique-muted">
+          <p className="mt-2 text-s text-celestique-muted font-gilroy font-medium">
             See and manage all your catalogue categories from one place.
           </p>
         </div>
@@ -22,12 +22,12 @@ export default function CatalogueSection() {
           ))}
 
           {/* View All card */}
-          <div className="group flex aspect-square cursor-pointer items-center justify-center rounded-xl border-2 border-dashed border-celestique-border bg-white hover:border-celestique-dark hover:bg-celestique-cream transition-all duration-200">
+          <div className="group flex w-[280px] h-[339px] cursor-pointer items-center justify-center rounded-xl border-2 border-dashed border-celestique-border bg-white hover:border-celestique-dark hover:bg-celestique-cream transition-all duration-200">
             <div className="text-center">
               <p className="text-3xl text-celestique-muted group-hover:text-celestique-dark transition-colors duration-200">
                 →
               </p>
-              <p className="mt-1 text-sm font-medium text-celestique-muted group-hover:text-celestique-dark transition-colors duration-200">
+              <p className="mt-1 text-sm font-gilroy font-medium text-celestique-muted group-hover:text-celestique-dark transition-colors duration-200">
                 View All
               </p>
             </div>

@@ -7,14 +7,14 @@ export default function CategoryCard({ category }) {
   const [imgError, setImgError] = useState(false);
 
   return (
-    <div className="group relative aspect-square cursor-pointer overflow-hidden rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200">
+    <div className="group relative w-[280px] h-[339px] cursor-pointer overflow-hidden rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200">
       {/* Image or gradient fallback */}
       {!imgError ? (
         <Image
           src={category.image}
           alt={category.name}
           fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          sizes="280px"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
           onError={() => setImgError(true)}
         />
@@ -24,12 +24,9 @@ export default function CategoryCard({ category }) {
         />
       )}
 
-      {/* Dark gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
-
       {/* Category name */}
-      <div className="absolute inset-0 flex items-end p-4">
-        <p className="text-sm font-medium text-white tracking-wide">
+      <div className="absolute inset-x-0 top-0 bg-gradient-to-b from-white/15 to-transparent backdrop-blur-[2x] p-4">
+        <p className="font-gilroy font-medium text-xl text-white tracking-wide text-center w-full">
           {category.name}
         </p>
       </div>
