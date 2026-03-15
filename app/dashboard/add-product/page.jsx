@@ -41,7 +41,7 @@ export default async function AddProductPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col gap-10 max-w-[1100px] w-full mx-auto px-10 py-10">
+      <main className="flex-1 flex flex-col items-center gap-10 max-w-[1100px] w-full mx-auto px-10 py-10">
         <AddProductForm />
       </main>
 
