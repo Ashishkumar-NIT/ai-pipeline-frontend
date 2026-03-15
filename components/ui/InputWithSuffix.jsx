@@ -1,22 +1,27 @@
 export function InputWithSuffix({ id, label, suffix, helperText, ...props }) {
   return (
-    <div className="flex flex-col gap-3 w-full group">
+    <div className="flex flex-col gap-2 w-full">
       {label && (
-        <label htmlFor={id} className="text-[10px] uppercase tracking-[0.2em] text-celestique-dark/60 transition-colors group-focus-within:text-celestique-dark">
+        <label
+          htmlFor={id}
+          className="text-sm font-medium text-[#374151]"
+        >
           {label}
         </label>
       )}
-      <div className="flex items-center border-b border-celestique-taupe transition-colors duration-300 focus-within:border-celestique-dark">
+      <div className="flex items-center border border-[#e5e5e5] rounded-lg overflow-hidden focus-within:border-[#3B82F6] focus-within:ring-1 focus-within:ring-[#3B82F6] transition-colors">
         <input
           id={id}
-          className="flex h-12 w-full bg-transparent px-0 py-2 text-sm text-celestique-dark placeholder:text-celestique-dark/30 focus:outline-none disabled:opacity-50"
+          className="h-11 flex-1 px-3 text-sm text-[#111827] placeholder:text-[#9CA3AF] focus:outline-none bg-transparent"
           {...props}
         />
-        <span className="inline-flex h-12 items-center px-2 text-[10px] uppercase tracking-[0.2em] text-celestique-dark/60">
+        <span className="h-11 flex items-center px-3 bg-[#F9FAFB] text-sm text-[#6B7280] border-l border-[#e5e5e5]">
           {suffix}
         </span>
       </div>
-      {helperText && <p className="text-[9px] uppercase tracking-[0.1em] text-celestique-dark/40 mt-1">{helperText}</p>}
+      {helperText && (
+        <p className="text-xs text-[#9CA3AF] mt-0.5">{helperText}</p>
+      )}
     </div>
   );
 }

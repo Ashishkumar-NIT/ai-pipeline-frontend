@@ -1,14 +1,16 @@
 "use client";
 
 import { signOut } from "../../lib/actions/auth";
-import { Button } from "../ui/Button";
 
 export function SignOutButton() {
   return (
     <form action={signOut}>
-      <Button type="submit" variant="outline">
+      <button
+        type="submit"
+        className="bg-black text-white px-3.5 py-2 rounded-md text-[13px] cursor-pointer hover:bg-black/90 transition-colors"
+      >
         Sign Out
-      </Button>
+      </button>
     </form>
   );
 }

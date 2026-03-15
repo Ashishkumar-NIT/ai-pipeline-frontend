@@ -71,11 +71,19 @@ const INITIAL_FORM = {
   title: "",
 };
 
+function NumberIndicator({ number }) {
+  return (
+    <div className="w-[26px] h-[26px] rounded-full bg-black text-white flex items-center justify-center text-xs font-medium">
+      {number}
+    </div>
+  );
+}
+
 export function AddProductForm() {
   const [form, setForm] = useState(INITIAL_FORM);
   const [imageFile, setImageFile] = useState(null);
-  const [status, setStatus] = useState("idle"); // idle | uploading | processing | bg_removed | saving | done | error
-  const [variantUrls, setVariantUrls] = useState([]); // up to 4 Nanobana variant URLs
+  const [status, setStatus] = useState("idle");
+  const [variantUrls, setVariantUrls] = useState([]);
   const [rawImageUrl, setRawImageUrl] = useState(null);
   const [bgRemovedUrl, setBgRemovedUrl] = useState(null);
   const [error, setError] = useState(null);
@@ -109,9 +117,6 @@ export function AddProductForm() {
         }
       );
 
-      // ── Update Supabase row with form metadata ────────────
-      // The backend already created the row — we UPDATE it with
-      // the wholesaler's details and the extra form fields.
       setStatus("saving");
       const saveResult = await saveProduct({
         product_id,
@@ -127,15 +132,12 @@ export function AddProductForm() {
         gross_weight:       form.grossWeight || null,
         stone_weight:       form.stoneWeight || null,
         raw_image_url:      raw || null,
-        // Pass variant URLs so saveProduct can write them as a safety net
-        // if the backend somehow hadn't stored them yet
         processed_image_url:  variants?.[0] || null,
         generated_image_urls: variants?.length ? variants : null,
       });
 
       if (saveResult?.error) {
         console.error("[saveProduct]", saveResult.error);
-        // Surface to user so they know the metadata wasn't saved
         setError(`Image processed but metadata save failed: ${saveResult.error}`);
       }
 
@@ -172,133 +174,147 @@ export function AddProductForm() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto bg-celestique-cream border border-celestique-taupe">
-      
-      {/* Header */}
-      <div className="px-8 py-12 md:px-16 md:py-16 border-b border-celestique-taupe text-center">
-        <h2 className="text-4xl md:text-5xl font-serif text-celestique-dark tracking-tight">Add New Product</h2>
-        <p className="text-celestique-dark/60 mt-4 text-sm uppercase tracking-[0.2em]">Enter the details below to create a new listing</p>
+    <div className="flex flex-col gap-10">
+      {/* Section 1 - Page Title */}
+      <div className="flex flex-col items-center text-center gap-2.5">
+        <h1 className="text-4xl font-semibold text-[#111827]">Add new product</h1>
+        <p className="text-base text-[#6B7280]">
+          Enter the details below to create a sparkling new listing.
+        </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="p-8 md:p-16 space-y-20">
-        
-        {/* Section: Media */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-           <div className="lg:col-span-4 space-y-4">
-             <h3 className="text-xl font-serif text-celestique-dark flex items-center gap-3">
-               <span className="text-sm font-sans uppercase tracking-[0.2em] text-celestique-dark/40">01</span>
-               Product Image
-             </h3>
-             <p className="text-xs uppercase tracking-[0.1em] text-celestique-dark/60 leading-relaxed">
-               Upload a high-quality image. Our AI will automatically enhance it and remove the background.
-             </p>
-           </div>
-           <div className="lg:col-span-8">
-             <ImageUpload onFileChange={setImageFile} />
-           </div>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-10">
+        {/* Section 2 - Product Image Upload */}
+        <div className="flex flex-row gap-[60px] items-start">
+          {/* Left - Information */}
+          <div className="flex flex-col gap-4 max-w-[360px]">
+            <div className="flex items-center gap-3">
+              <NumberIndicator number={1} />
+              <h2 className="text-lg font-medium text-[#111827]">Product image</h2>
+            </div>
+            <div className="text-sm text-[#6B7280] leading-relaxed">
+              <p className="mb-3">
+                Upload a clear image. We&apos;ll remove the background first, then enhance it.
+              </p>
+              <p className="font-medium text-[#374151] mb-2">Get the best result from your photo:</p>
+              <ul className="list-disc list-inside space-y-1 text-[#6B7280]">
+                <li>Place the jewellery on a background that contrasts with the product</li>
+                <li>Upload a clear well-lit photo</li>
+                <li>Keep only the product in the frame</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Right - Image Upload Area */}
+          <div className="flex-1">
+            <ImageUpload onFileChange={setImageFile} />
+          </div>
         </div>
 
-        <div className="h-px w-full bg-celestique-taupe"></div>
-
-        {/* Section: Basic Info */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-4 space-y-4">
-             <h3 className="text-xl font-serif text-celestique-dark flex items-center gap-3">
-               <span className="text-sm font-sans uppercase tracking-[0.2em] text-celestique-dark/40">02</span>
-               Essential Details
-             </h3>
-             <p className="text-xs uppercase tracking-[0.1em] text-celestique-dark/60 leading-relaxed">
-               Define the core identity of your jewelry piece.
-             </p>
+        {/* Section 3 - Essential Details */}
+        <div className="flex flex-col gap-6">
+          <div className="flex items-center gap-3">
+            <NumberIndicator number={2} />
+            <h2 className="text-lg font-medium text-[#111827]">Essential details</h2>
           </div>
-          
-          <div className="lg:col-span-8 space-y-10">
-            <div className="space-y-6">
+
+          {/* Row 1 - Title with description */}
+          <div className="flex justify-between gap-10 items-start">
+            <div className="max-w-[300px]">
+              <p className="text-sm text-[#6B7280] leading-relaxed">
+                Define the core identity of your jewelry piece with a clear title and key attributes.
+              </p>
+            </div>
+            <div className="flex-1 max-w-[600px]">
               <Input
                 id="title"
                 name="title"
                 label="Product Title"
                 type="text"
-                placeholder="e.g. Vintage Gold Necklace"
+                placeholder="eg. Vintage gold Necklace"
                 value={form.title}
                 onChange={(e) => setField("title", e.target.value)}
                 required
               />
             </div>
+          </div>
 
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+          {/* Row 2 - Type and Material Category */}
+          <div className="flex gap-5">
+            <div className="flex-1">
               <Select
                 id="jewellery_type"
                 label="Type"
                 options={JEWELLERY_TYPES}
                 value={form.jewellery_type}
                 onChange={(e) => setField("jewellery_type", e.target.value)}
+                placeholder="select"
               />
+            </div>
+            <div className="flex-1">
               <Select
                 id="category"
                 label="Material Category"
                 options={CATEGORIES}
                 value={form.category}
                 onChange={(e) => setField("category", e.target.value)}
+                placeholder="select"
               />
             </div>
+          </div>
 
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+          {/* Row 3 - Style, Size, Purity */}
+          <div className="flex gap-5">
+            <div className="flex-1">
               <Select
                 id="style"
                 label="Style Aesthetic"
                 options={STYLES}
                 value={form.style}
                 onChange={(e) => setField("style", e.target.value)}
+                placeholder="select"
               />
-              <div className="grid grid-cols-2 gap-6">
+            </div>
+            <div className="flex-1 flex gap-5">
+              <div className="flex-1">
                 <Select
                   id="size"
                   label="Size"
                   options={SIZES}
                   value={form.size}
                   onChange={(e) => setField("size", e.target.value)}
+                  placeholder="select"
                 />
+              </div>
+              <div className="flex-1">
                 <Select
                   id="metalPurity"
                   label="Purity"
                   options={METAL_PURITIES}
                   value={form.metalPurity}
                   onChange={(e) => setField("metalPurity", e.target.value)}
+                  placeholder="select"
                 />
               </div>
             </div>
           </div>
         </div>
 
-        <div className="h-px w-full bg-celestique-taupe"></div>
-
-        {/* Section: Specifications */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-4 space-y-4">
-             <h3 className="text-xl font-serif text-celestique-dark flex items-center gap-3">
-               <span className="text-sm font-sans uppercase tracking-[0.2em] text-celestique-dark/40">03</span>
-               Specifications
-             </h3>
-             <p className="text-xs uppercase tracking-[0.1em] text-celestique-dark/60 leading-relaxed">
-               Precise measurements and inventory details.
-             </p>
+        {/* Section 4 - Specifications */}
+        <div className="flex flex-col gap-6">
+          <div className="flex items-center gap-3">
+            <NumberIndicator number={3} />
+            <h2 className="text-lg font-medium text-[#111827]">Specifications</h2>
           </div>
 
-          <div className="lg:col-span-8 space-y-10">
-            {/* Weights */}
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 bg-celestique-taupe/10 p-8 border border-celestique-taupe">
-              <InputWithSuffix
-                id="netWeight"
-                label="Net Weight"
-                type="number"
-                min="0"
-                step="0.01"
-                placeholder="0.00"
-                suffix="g"
-                value={form.netWeight}
-                onChange={(e) => setField("netWeight", e.target.value)}
-              />
+          {/* Block 1 - Description */}
+          <p className="text-sm text-[#6B7280] leading-relaxed">
+            Precise measurements help retailers understand your product better. Enter the weight details and availability information.
+          </p>
+
+          {/* Block 2 - Weight Inputs */}
+          <div className="flex justify-between gap-5">
+            <div className="flex-1">
               <InputWithSuffix
                 id="grossWeight"
                 label="Gross Weight"
@@ -310,6 +326,8 @@ export function AddProductForm() {
                 value={form.grossWeight}
                 onChange={(e) => setField("grossWeight", e.target.value)}
               />
+            </div>
+            <div className="flex-1">
               <InputWithSuffix
                 id="stoneWeight"
                 label="Stone Weight"
@@ -322,77 +340,80 @@ export function AddProductForm() {
                 onChange={(e) => setField("stoneWeight", e.target.value)}
               />
             </div>
-
-            <div className="flex items-center justify-between p-6 border border-celestique-taupe bg-celestique-taupe/5">
-              <div className="flex flex-col gap-2">
-                  <span className="text-xs uppercase tracking-[0.2em] text-celestique-dark">Available in Stock</span>
-                  <span className="text-[10px] uppercase tracking-[0.1em] text-celestique-dark/60">Is this piece ready for immediate shipment?</span>
-              </div>
-              <Toggle
-                id="stockAvailable"
-                label=""
-                checked={form.stockAvailable}
-                onChange={(val) => setField("stockAvailable", val)}
+            <div className="flex-1">
+              <InputWithSuffix
+                id="netWeight"
+                label="Net Weight"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+                suffix="g"
+                value={form.netWeight}
+                onChange={(e) => setField("netWeight", e.target.value)}
               />
             </div>
-
-            {!form.stockAvailable && (
-              <div className="animate-fade-in">
-                  <InputWithSuffix
-                    id="makeToOrderDays"
-                    label="Production Time"
-                    type="number"
-                    min="0"
-                    placeholder="e.g. 15"
-                    suffix="days"
-                    value={form.makeToOrderDays}
-                    onChange={(e) => setField("makeToOrderDays", e.target.value)}
-                    helperText="Days required to manufacture this piece"
-                  />
-              </div>
-            )}
           </div>
+
+          {/* Block 3 - Stock Toggle */}
+          <div className="flex justify-between items-center py-4">
+            <div className="flex flex-col gap-1">
+              <span className="text-sm font-medium text-[#111827]">Available in Stock</span>
+              <span className="text-xs text-[#6B7280]">Is this piece ready for immediate shipment?</span>
+            </div>
+            <Toggle
+              id="stockAvailable"
+              label=""
+              checked={form.stockAvailable}
+              onChange={(val) => setField("stockAvailable", val)}
+            />
+          </div>
+
+          {/* Block 4 - Production Time (only shown when stock is OFF) */}
+          {!form.stockAvailable && (
+            <div className="animate-fade-in">
+              <InputWithSuffix
+                id="makeToOrderDays"
+                label="Production time"
+                type="number"
+                min="0"
+                placeholder="eg. 14"
+                suffix="days"
+                value={form.makeToOrderDays}
+                onChange={(e) => setField("makeToOrderDays", e.target.value)}
+              />
+            </div>
+          )}
         </div>
 
         {/* Error */}
         {error && (
-          <div className="border border-red-200 bg-red-50 p-6 animate-fade-in">
-            <div className="flex items-center gap-4">
-               <div className="shrink-0 w-10 h-10 flex items-center justify-center border border-red-200 text-red-600">
-                 !
-               </div>
-               <div>
-                 <h3 className="text-xs uppercase tracking-[0.2em] text-red-900">Submission Error</h3>
-                 <p className="text-sm text-red-700 mt-1">{error}</p>
-               </div>
+          <div className="border border-red-200 bg-red-50 p-4 rounded-lg animate-fade-in">
+            <div className="flex items-center gap-3">
+              <div className="shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-red-100 text-red-600 text-sm font-bold">
+                !
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-red-900">Submission Error</h3>
+                <p className="text-sm text-red-700 mt-0.5">{error}</p>
+              </div>
             </div>
           </div>
         )}
 
-        {/* Submit - Sticky Footer */}
-        <div className="fixed bottom-0 left-0 right-0 z-50 bg-celestique-cream/95 backdrop-blur-md border-t border-celestique-dark/10 p-4 md:p-6 flex justify-center md:justify-end shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
-          <div className="w-full max-w-5xl mx-auto flex items-center justify-between px-4 md:px-8">
-            <div className="hidden md:block">
-              <p className="text-[10px] uppercase tracking-widest text-celestique-dark/60 font-bold">
-                Ready to process?
-              </p>
-              <p className="text-sm font-serif italic text-celestique-dark mt-1">
-                Our AI will remove the background and generate 4 variants.
-              </p>
-            </div>
-            <button
-              type="submit"
-              className="w-full md:w-auto group relative inline-flex items-center justify-center gap-4 px-12 py-5 bg-celestique-dark text-celestique-cream text-[11px] uppercase tracking-widest font-bold hover:bg-celestique-dark/90 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
-            >
-              <span>Process & Create Product</span>
-              <span className="transition-transform group-hover:translate-x-1">&rarr;</span>
-            </button>
-          </div>
+        {/* Section 5 - Submit Area */}
+        <div className="flex justify-between items-center mt-5">
+          <p className="text-sm text-[#6B7280] max-w-[500px]">
+            By submitting, you allow us to display your product details and images to retailers on the platform.
+          </p>
+          <button
+            type="submit"
+            className="bg-black text-white px-5 py-3 rounded-lg font-medium cursor-pointer hover:bg-black/90 transition-colors"
+          >
+            Submit Product
+          </button>
         </div>
       </form>
-      
-      {/* Spacer to prevent footer overlap */}
-      <div className="h-24"></div>
     </div>
   );
 }
