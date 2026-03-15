@@ -72,7 +72,7 @@ export function ImageUpload({ onFileChange }) {
 
       {/* Action buttons - shown when image is uploaded */}
       {preview && (
-        <div className="flex gap-4 mt-3">
+        <div className="flex gap-4 mt-3 w-[420px] justify-center">
           <button
             type="button"
             onClick={(e) => { e.stopPropagation(); inputRef.current?.click(); }}
