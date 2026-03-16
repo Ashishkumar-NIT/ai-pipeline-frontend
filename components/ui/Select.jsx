@@ -30,7 +30,7 @@ export function Select({ id, label, options = [], value, onChange, placeholder =
       {label && (
         <label
           htmlFor={id}
-          className="text-sm font-medium text-[#374151]"
+          className="text-sm font-semibold text-[#374151] font-gilroy"
         >
           {label}
         </label>
@@ -55,7 +55,7 @@ export function Select({ id, label, options = [], value, onChange, placeholder =
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className={`w-full h-11 border border-[#e5e5e5] rounded-lg px-3 flex items-center justify-between text-sm transition-colors ${
+          className={`w-full h-11 border border-[#e5e5e5] rounded-lg px-3 flex items-center justify-between text-sm transition-colors font-gilroy font-semibold ${
             isOpen
               ? "border-[#3B82F6] ring-1 ring-[#3B82F6]"
               : "hover:border-[#d1d5db]"
@@ -86,10 +86,10 @@ export function Select({ id, label, options = [], value, onChange, placeholder =
                 <button
                   type="button"
                   key={opt.value}
-                  className={`w-full text-left px-3 py-2.5 text-sm transition-colors ${
+                  className={`w-full text-left px-3 py-2.5 text-sm transition-colors font-gilroy ${
                     value === opt.value
-                      ? "bg-[#F3F4F6] text-[#111827] font-medium"
-                      : "text-[#374151] hover:bg-[#F9FAFB]"
+                      ? "bg-[#F3F4F6] text-[#111827] font-semibold"
+                      : "text-[#374151] hover:bg-[#F9FAFB] font-medium"
                   }`}
                   onClick={() => handleSelect(opt.value)}
                 >

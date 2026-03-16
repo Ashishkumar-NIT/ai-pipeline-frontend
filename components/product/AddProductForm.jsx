@@ -177,8 +177,8 @@ export function AddProductForm() {
     <div className="flex flex-col gap-10">
       {/* Section 1 - Page Title */}
       <div className="flex flex-col items-center text-center gap-2.5">
-        <h1 className="text-4xl font-semibold text-[#111827]">Add new product</h1>
-        <p className="text-base text-[#6B7280]">
+        <h1 className="text-4xl font-semibold text-[#111827] font-cirka">Add new product</h1>
+        <p className="text-base text-[#6B7280] font-gilroy font-medium">
           Enter the details below to create a sparkling new listing.
         </p>
       </div>
@@ -190,9 +190,9 @@ export function AddProductForm() {
           <div className="flex flex-col gap-4 max-w-[360px]">
             <div className="flex items-center gap-3">
               <NumberIndicator number={1} />
-              <h2 className="text-lg font-medium text-[#111827]">Product image</h2>
+              <h2 className="text-lg font-semibold text-[#111827] font-gilroy font-bold">Product image</h2>
             </div>
-            <div className="text-sm text-[#6B7280] leading-relaxed">
+            <div className="text-sm text-[#6B7280] leading-relaxed font-gilroy">
               <p className="mb-3">
                 Upload a clear image. We&apos;ll remove the background first, then enhance it.
               </p>
@@ -215,13 +215,13 @@ export function AddProductForm() {
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-3">
             <NumberIndicator number={2} />
-            <h2 className="text-lg font-medium text-[#111827]">Essential details</h2>
+            <h2 className="text-lg font-semibold text-[#111827] font-gilroy">Essential details</h2>
           </div>
 
           {/* Row 1 - Title with description */}
           <div className="flex justify-between gap-10 items-start">
             <div className="max-w-[300px]">
-              <p className="text-sm text-[#6B7280] leading-relaxed">
+              <p className="text-sm text-[#6B7280] leading-relaxed font-gilroy">
                 Define the core identity of your jewelry piece with a clear title and key attributes.
               </p>
             </div>
@@ -304,11 +304,11 @@ export function AddProductForm() {
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-3">
             <NumberIndicator number={3} />
-            <h2 className="text-lg font-medium text-[#111827]">Specifications</h2>
+            <h2 className="text-lg font-semibold text-[#111827] font-gilroy ">Specifications</h2>
           </div>
 
           {/* Block 1 - Description */}
-          <p className="text-sm text-[#6B7280] leading-relaxed">
+          <p className="text-sm text-[#6B7280] leading-relaxed font-gilroy">
             Precise measurements help retailers understand your product better. Enter the weight details and availability information.
           </p>
 
@@ -358,8 +358,8 @@ export function AddProductForm() {
           {/* Block 3 - Stock Toggle */}
           <div className="flex justify-between items-center py-4">
             <div className="flex flex-col gap-1">
-              <span className="text-sm font-medium text-[#111827]">Available in Stock</span>
-              <span className="text-xs text-[#6B7280]">Is this piece ready for immediate shipment?</span>
+              <span className="text-sm font-medium text-[#111827] font-gilroy">Available in Stock</span>
+              <span className="text-xs text-[#6B7280] font-gilroy ">Is this piece ready for immediate shipment?</span>
             </div>
             <Toggle
               id="stockAvailable"
@@ -402,13 +402,13 @@ export function AddProductForm() {
         )}
 
         {/* Section 5 - Submit Area */}
-        <div className="flex justify-between items-center mt-5">
-          <p className="text-sm text-[#6B7280] max-w-[500px]">
+        <div className="flex justify-between items-center mt-5 ">
+          <p className="text-sm text-[#6B7280] max-w-[500px] font-gilroy">
             By submitting, you allow us to display your product details and images to retailers on the platform.
           </p>
           <button
             type="submit"
-            className="bg-black text-white px-5 py-3 rounded-lg font-medium cursor-pointer hover:bg-black/90 transition-colors"
+            className="bg-black text-white px-5 py-3 rounded-lg font-medium cursor-pointer hover:bg-black/90 transition-colors font-gilroy"
           >
             Submit Product
           </button>

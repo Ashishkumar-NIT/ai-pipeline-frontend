@@ -18,7 +18,7 @@ export default async function AddProductPage() {
         {/* Left - Back to dashboard */}
         <Link
           href="/dashboard/wholesaler"
-          className="flex items-center gap-2 text-sm text-[#374151] hover:text-[#111827] transition-colors cursor-pointer"
+          className="flex items-center gap-2 text-sm text-[#374151] hover:text-[#111827] transition-colors cursor-pointer font-sfpro"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +35,7 @@ export default async function AddProductPage() {
 
         {/* Right - User info and sign out */}
         <div className="flex flex-row items-center gap-4">
-          <span className="text-[13px] text-[#6B7280]">{user.email}</span>
+          <span className="text-[13px] text-[#6B7280] font-sfpro">{user.email}</span>
           <SignOutButton />
         </div>
       </header>
@@ -46,7 +46,7 @@ export default async function AddProductPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-[#e5e5e5] bg-white px-10 py-4">
+      <footer className="border-t border-[#e5e5e5] bg-white px-10 py-4 font-gilroy font-normal">
         <div className="max-w-[1100px] mx-auto flex items-center justify-between">
           <p className="text-sm text-[#6B7280]">
             All Rights Reserved © Jewels India

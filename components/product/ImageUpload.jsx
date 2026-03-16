@@ -76,7 +76,7 @@ export function ImageUpload({ onFileChange }) {
           <button
             type="button"
             onClick={(e) => { e.stopPropagation(); inputRef.current?.click(); }}
-            className="bg-black text-white px-3.5 py-2 rounded-md text-sm flex items-center gap-1.5 hover:bg-black/90 transition-colors"
+            className="bg-black text-white px-3.5 py-2 rounded-md text-sm flex items-center gap-1.5 hover:bg-black/90 transition-colors font-gilroy font-semibold"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +93,7 @@ export function ImageUpload({ onFileChange }) {
           <button
             type="button"
             onClick={handleRemove}
-            className="bg-transparent text-red-500 px-3.5 py-2 text-sm flex items-center gap-1.5 hover:text-red-600 transition-colors"
+            className="bg-transparent text-red-500 px-3.5 py-2 text-sm flex items-center gap-1.5 hover:text-red-600 transition-colors font-gilroy font-semibold"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
