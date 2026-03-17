@@ -225,7 +225,7 @@ export function AddProductForm() {
                 Define the core identity of your jewelry piece with a clear title and key attributes.
               </p>
             </div>
-            <div className="flex-1 max-w-[600px]">
+            <div className="flex-1 max-w-[500px]">
               <Input
                 id="title"
                 name="title"
@@ -359,7 +359,7 @@ export function AddProductForm() {
           <div className="flex justify-between items-center py-4">
             <div className="flex flex-col gap-1">
               <span className="text-sm font-medium text-[#111827] font-gilroy">Available in Stock</span>
-              <span className="text-xs text-[#6B7280] font-gilroy ">Is this piece ready for immediate shipment?</span>
+              <span className="text-M text-[#6B7280] font-gilroy ">Is this piece ready for immediate shipment?</span>
             </div>
             <Toggle
               id="stockAvailable"
@@ -402,9 +402,9 @@ export function AddProductForm() {
         )}
 
         {/* Section 5 - Submit Area */}
-        <div className="flex justify-between items-center mt-5 ">
-          <p className="text-sm text-[#6B7280] max-w-[500px] font-gilroy">
-            By submitting, you allow us to display your product details and images to retailers on the platform.
+        <div className="flex justify-end items-center mt-5 gap-3">
+          <p className="text-[8px] font-bold text-[#000000] max-w-[500px] font-gilroy mt-6.5 ">
+           *By submitting, you allow us to display your product details <br />and images to retailers on the platform.
           </p>
           <button
             type="submit"
