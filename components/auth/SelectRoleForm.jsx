@@ -49,7 +49,7 @@ export function SelectRoleForm() {
     }
     // Redirect based on role
     if (selected === "wholesaler") {
-      router.push("/dashboard/add-product");
+      router.push("/dashboard/wholesaler");
     } else {
       router.push("/");
     }

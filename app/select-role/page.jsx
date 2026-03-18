@@ -15,7 +15,7 @@ export default async function SelectRolePage() {
 
   // If role already set, route to appropriate destination
   const existingRole = user.user_metadata?.role;
-  if (existingRole === "wholesaler") redirect("/dashboard/add-product");
+  if (existingRole === "wholesaler") redirect("/dashboard/wholesaler");
   if (existingRole === "retailer") redirect("/");
 
   return (

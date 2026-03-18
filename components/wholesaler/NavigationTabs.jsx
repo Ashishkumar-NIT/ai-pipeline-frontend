@@ -1,7 +1,7 @@
 "use client";
 
 import NextImage from "next/image";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 function HomeIcon() {
   return (
@@ -20,13 +20,19 @@ function UploadIcon() {
 }
 
 const tabs = [
-  { id: "home", label: "Home", icon: <HomeIcon /> },
-  { id: "upload", label: "Upload", icon: <UploadIcon /> },
-  { id: "catalogue", label: "My Catalogue", icon: "/image/Vector.png" },
+  { id: "home", label: "Home", icon: <HomeIcon />, href: "/dashboard/wholesaler" },
+  { id: "upload", label: "Upload", icon: <UploadIcon />, href: "/dashboard/add-product" },
+  { id: "catalogue", label: "My Catalogue", icon: "/image/Vector.png", href: "/dashboard/wholesaler/catalogue" },
 ];
 
 export default function NavigationTabs() {
-  const [active, setActive] = useState("home");
+  const pathname = usePathname();
+  const router = useRouter();
+  const active = tabs.find((tab) => tab.href === pathname)?.id ?? "home";
+
+  function handleTabClick(tab) {
+    router.push(tab.href);
+  }
 
   return (
     <div className="sticky top-0 z-20 px-6 py-3 flex justify-center">
@@ -36,7 +42,7 @@ export default function NavigationTabs() {
           <button
             key={tab.id}
             type="button"
-            onClick={() => setActive(tab.id)}
+            onClick={() => handleTabClick(tab)}
             className={`font-manrope flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium cursor-pointer transition-all duration-200 ease-in-out ${
               active === tab.id
                 ? "bg-white text-gray-900 shadow-md"

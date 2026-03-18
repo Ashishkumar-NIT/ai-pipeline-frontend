@@ -1,7 +1,7 @@
 import { getAuthUser } from "../../../lib/supabase/queries";
 import { redirect } from "next/navigation";
-import Link from "next/link";
 import { AddProductForm } from "../../../components/product/AddProductForm";
+import { BackToDashboardButton } from "../../../components/product/BackToDashboardButton";
 import { SignOutButton } from "../../../components/auth/SignOutButton";
 
 export const metadata = { title: "Add Product — Celestique" };
@@ -16,22 +16,7 @@ export default async function AddProductPage() {
       {/* Header */}
       <header className="sticky top-0 z-50 flex items-center justify-between border-b border-[#e5e5e5] bg-white px-10 py-2.5">
         {/* Left - Back to dashboard */}
-        <Link
-          href="/dashboard/wholesaler"
-          className="flex items-center gap-2 text-sm text-[#374151] hover:text-[#111827] transition-colors cursor-pointer font-sfpro"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-          </svg>
-          <span>Back to dashboard</span>
-        </Link>
+        <BackToDashboardButton />
         {/* Right - User info and sign out */}
         <div className="flex flex-row items-center gap-4">
           <span className="text-[13px] text-[#6B7280] font-sfpro">{user.email}</span>

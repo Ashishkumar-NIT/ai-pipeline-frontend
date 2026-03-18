@@ -38,7 +38,7 @@ export async function GET(request) {
       }
 
       if (role === "wholesaler") {
-        return NextResponse.redirect(`${origin}/dashboard/add-product`);
+        return NextResponse.redirect(`${origin}/dashboard/wholesaler`);
       }
       if (role === "retailer") {
         return NextResponse.redirect(`${origin}/`);
