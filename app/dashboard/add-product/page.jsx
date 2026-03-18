@@ -32,7 +32,6 @@ export default async function AddProductPage() {
           </svg>
           <span>Back to dashboard</span>
         </Link>
-
         {/* Right - User info and sign out */}
         <div className="flex flex-row items-center gap-4">
           <span className="text-[13px] text-[#6B7280] font-sfpro">{user.email}</span>
