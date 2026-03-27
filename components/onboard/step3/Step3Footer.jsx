@@ -11,7 +11,7 @@ export function Step3Footer() {
         *Your documents are encrypted and only used for verification. We never share them.
       </p>
       <button 
-        onClick={() => router.push('/dashboard')}
+        onClick={() => router.push('/onboard/submitted')}
         className="w-full md:w-auto bg-[#000000] text-white font-extrabold rounded-[10px] px-10 py-[14px] hover:bg-black/90 transition-colors tracking-wide"
       >
         Submit
