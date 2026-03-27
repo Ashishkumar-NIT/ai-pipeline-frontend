@@ -120,19 +120,19 @@ export function AddProductForm() {
       setStatus("saving");
       const saveResult = await saveProduct({
         product_id,
-        title:              form.title || JEWELLERY_TYPES.find((t) => t.value === form.jewellery_type)?.label || "Untitled",
-        jewellery_type:     form.jewellery_type || null,
-        category:           form.category || null,
-        style:              form.style || null,
-        size:               form.size || null,
-        stock_available:    form.stockAvailable,
+        title: form.title || JEWELLERY_TYPES.find((t) => t.value === form.jewellery_type)?.label || "Untitled",
+        jewellery_type: form.jewellery_type || null,
+        category: form.category || null,
+        style: form.style || null,
+        size: form.size || null,
+        stock_available: form.stockAvailable,
         make_to_order_days: form.makeToOrderDays || null,
-        metal_purity:       form.metalPurity || null,
-        net_weight:         form.netWeight || null,
-        gross_weight:       form.grossWeight || null,
-        stone_weight:       form.stoneWeight || null,
-        raw_image_url:      raw || null,
-        processed_image_url:  variants?.[0] || null,
+        metal_purity: form.metalPurity || null,
+        net_weight: form.netWeight || null,
+        gross_weight: form.grossWeight || null,
+        stone_weight: form.stoneWeight || null,
+        raw_image_url: raw || null,
+        processed_image_url: variants?.[0] || null,
         generated_image_urls: variants?.length ? variants : null,
       });
 
@@ -193,9 +193,13 @@ export function AddProductForm() {
               <NumberIndicator number={1} />
               <h2 className="text-[20px] md:text-3xl font-semibold text-[#111827] font-gilroy font-bold">Product image</h2>
             </div>
-            <p className="text-sm text-[#6B7280] leading-relaxed font-gilroy">
-              Upload a clear image. We&apos;ll remove the background first, then enhance it.
-            </p>
+            {/* Align description under h2 on mobile using spacer matching badge width */}
+            <div className="flex gap-3 md:block">
+              <div className="w-[26px] shrink-0 md:hidden" />
+              <p className="text-sm text-[#6B7280] leading-relaxed font-gilroy">
+                Upload a clear image. We&apos;ll remove the background first, then enhance it.
+              </p>
+            </div>
 
             {/* Tips box */}
             <div className="text-sm text-[#6B7280] leading-relaxed font-gilroy">
@@ -230,7 +234,7 @@ export function AddProductForm() {
           {/* Description + Product Title */}
           {/* Desktop: side-by-side | Mobile: stacked */}
           <div className="flex flex-col md:flex-row md:w-220 md:justify-between md:gap-1 md:items-start gap-4">
-            <div>
+            <div className="pl-[38px] md:pl-0">
               <p className="text-sm text-[#6B7280] leading-relaxed font-gilroy">
                 Add the key information that helps retailers <br className="hidden md:inline" />understand and find this peice.
               </p>
@@ -320,12 +324,12 @@ export function AddProductForm() {
             <h2 className="text-[20px] md:text-3xl font-semibold text-[#111827] font-gilroy">Specifications</h2>
           </div>
 
-          <p className="text-sm text-[#6B7280] leading-relaxed font-gilroy">
+          <p className="pl-[38px] md:pl-0 text-sm text-[#6B7280] leading-relaxed font-gilroy">
             Add weight and stone details so retailers <br className="hidden md:inline" /> know exactly what they&apos;re getting.
           </p>
 
           {/* Weight inputs — 3 cols on desktop, stacked on mobile */}
-          <div className="flex flex-col md:flex-row md:gap-5 md:w-64 gap-4 mt-2">
+          <div className="flex flex-col md:flex-row md:gap-5 md:w-180 gap-4 mt-2">
             <div className="w-full md:flex-1">
               <InputWithSuffix
                 id="grossWeight"
@@ -425,7 +429,7 @@ export function AddProductForm() {
               Submit
             </button>
             <p className="text-[10px] font-bold text-[#000000] text-center font-gilroy">
-              *By submitting, you allow us to display your product details and images to retailers on the platform.
+              *By submitting, you allow us to display your product details and<br />images to retailers on the platform.
             </p>
           </div>
 

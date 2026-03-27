@@ -31,7 +31,7 @@ export default async function AddProductPage() {
 
       {/* Footer */}
       <footer className="border-t border-[#e5e5e5] bg-white px-4 md:px-10 py-4 font-gilroy font-normal">
-        <div className="max-w-[1100px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2 md:gap-0 text-center md:text-left">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-2 md:gap-0 text-center md:text-left">
           <p className="text-sm text-[#6B7280]">
             All Rights Reserved © Jewels India
           </p>
