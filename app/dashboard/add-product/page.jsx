@@ -14,24 +14,24 @@ export default async function AddProductPage() {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       {/* Header */}
-      <header className="sticky top-0 z-50 flex items-center justify-between border-b border-[#e5e5e5] bg-white px-10 py-2.5">
+      <header className="sticky top-0 z-50 flex items-center justify-between border-b border-[#e5e5e5] bg-white px-4 md:px-10 py-2.5">
         {/* Left - Back to dashboard */}
         <BackToDashboardButton />
         {/* Right - User info and sign out */}
         <div className="flex flex-row items-center gap-4">
-          <span className="text-[13px] text-[#6B7280] font-sfpro">{user.email}</span>
+          <span className="hidden md:inline text-[13px] text-[#6B7280] font-sfpro">{user.email}</span>
           <SignOutButton />
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col gap-10 max-w-[1100px] w-full mx-auto px-10 py-10">
+      <main className="flex-1 flex flex-col gap-6 md:gap-10 w-full max-w-full md:max-w-[1100px] mx-auto px-4 md:px-10 py-6 md:py-10">
         <AddProductForm />
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-[#e5e5e5] bg-white px-10 py-4 font-gilroy font-normal">
-        <div className="max-w-[1100px] mx-auto flex items-center justify-between">
+      <footer className="border-t border-[#e5e5e5] bg-white px-4 md:px-10 py-4 font-gilroy font-normal">
+        <div className="max-w-[1100px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2 md:gap-0 text-center md:text-left">
           <p className="text-sm text-[#6B7280]">
             All Rights Reserved © Jewels India
           </p>

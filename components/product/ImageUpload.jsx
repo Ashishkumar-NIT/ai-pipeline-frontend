@@ -38,7 +38,7 @@ export function ImageUpload({ onFileChange }) {
         onDragLeave={() => setDragOver(false)}
         onDrop={handleDrop}
         onClick={() => !preview && inputRef.current?.click()}
-        className={`w-[420px] h-[240px] border-2 border-dashed rounded-[10px] bg-[#F1F5F9] flex items-center justify-center cursor-pointer transition-all ${
+        className={`w-full md:w-[420px] h-[200px] md:h-[240px] border-2 border-dashed rounded-[10px] bg-[#F1F5F9] flex items-center justify-center cursor-pointer transition-all ${
           dragOver
             ? "border-[#2563EB] bg-[#EFF6FF]"
             : "border-[#3B82F6] hover:border-[#2563EB] hover:bg-[#F8FAFC]"
@@ -72,7 +72,7 @@ export function ImageUpload({ onFileChange }) {
 
       {/* Action buttons - shown when image is uploaded */}
       {preview && (
-        <div className="flex gap-4 mt-3 w-[420px] justify-center">
+        <div className="flex gap-4 mt-3 w-full md:w-[420px] justify-center">
           <button
             type="button"
             onClick={(e) => { e.stopPropagation(); inputRef.current?.click(); }}

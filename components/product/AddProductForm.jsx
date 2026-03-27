@@ -188,7 +188,7 @@ export function AddProductForm() {
         <div className="flex flex-row gap-[100px] items-start">
           {/* Left - Information */}
           <div className="flex flex-col gap-4 max-w-[360px]">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 -ml-10">
               <NumberIndicator number={1} />
               <h2 className="text-3xl font-semibold text-[#111827] font-gilroy font-bold">Product image</h2>
             </div>
@@ -213,7 +213,7 @@ export function AddProductForm() {
 
         {/* Section 3 - Essential Details */}
         <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 -ml-10">
             <NumberIndicator number={2} />
             <h2 className="text-3xl font-semibold text-[#111827] font-gilroy">Essential details</h2>
           </div>
@@ -308,7 +308,7 @@ export function AddProductForm() {
 
         {/* Section 4 - Specifications */}
         <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 -ml-10">
             <NumberIndicator number={3} />
             <h2 className="text-3xl font-semibold text-[#111827] font-gilroy ">Specifications</h2>
           </div>
@@ -319,7 +319,7 @@ export function AddProductForm() {
           </p>
 
           {/* Block 2 - Weight Inputs */}
-          <div className="flex gap-5 w-100">
+          <div className="flex gap-5 w-64">
             <div className="flex-1">
               <InputWithSuffix
                 id="grossWeight"

@@ -21,7 +21,7 @@ export function BackToDashboardButton() {
       >
         <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
       </svg>
-      <span>Back to dashboard</span>
+      <span className="hidden md:inline">Back to dashboard</span>
     </button>
   );
 }
