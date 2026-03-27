@@ -21,7 +21,7 @@ export function Step3Footer({ isFormValid, onSubmitAttempt }) {
         type="button"
         onClick={handleNext}
         disabled={!isFormValid}
-        className={`w-full md:w-auto font-extrabold rounded-[10px] px-10 py-[14px] transition-colors tracking-wide ${isFormValid ? 'bg-[#000000] text-white hover:bg-black/90 cursor-pointer' : 'bg-[#D1D5DB] text-white cursor-not-allowed'}`}
+        className={`w-full md:w-auto font-extrabold rounded-[10px] px-[clamp(24px,3vw,40px)] py-[clamp(10px,1.2vw,14px)] text-[clamp(13px,1.4vw,15px)] transition-colors tracking-wide ${isFormValid ? 'bg-[#000000] text-white hover:bg-black/90 cursor-pointer' : 'bg-[#D1D5DB] text-white cursor-not-allowed'}`}
       >
         Submit
       </button>

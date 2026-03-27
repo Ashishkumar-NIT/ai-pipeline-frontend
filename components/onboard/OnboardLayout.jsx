@@ -6,14 +6,14 @@ export function OnboardLayout({ children, heading, description, backRoute }) {
     <div className="min-h-screen bg-[#FFFFFF] flex flex-col font-sans antialiased text-[#374151]">
       <OnboardNavbar backRoute={backRoute} />
       
-      <main className="flex-1 w-full max-w-[1100px] mx-auto px-6 py-10 lg:py-20 lg:px-10 flex flex-col lg:flex-row lg:items-start gap-12 lg:gap-24">
+      <main className="flex-1 w-full max-w-[1100px] mx-auto px-[clamp(16px,3vw,48px)] py-[clamp(32px,5vw,80px)] flex flex-col md:flex-row md:items-start gap-10 md:gap-[clamp(24px,4vw,96px)]">
         {/* Left Side */}
-        <div className="w-full lg:w-[40%] shrink-0 pt-2 flex flex-col items-center lg:items-start text-center lg:text-left">
+        <div className="w-full md:w-[35%] shrink-0 pt-2 flex flex-col items-center md:items-start text-center md:text-left">
           <LeftPanel heading={heading} description={description} />
         </div>
         
         {/* Right Side - Dynamic Content */}
-        <div className="w-full lg:w-[60%] flex flex-col items-center lg:items-start min-h-[400px]">
+        <div className="w-full md:flex-1 flex flex-col items-center md:items-start min-h-[400px]">
           {children}
         </div>
       </main>

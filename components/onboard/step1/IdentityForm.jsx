@@ -1,3 +1,4 @@
+"use client";
 export function IdentityForm({ name, setName, aadhar, setAadhar, submitAttempted }) {
   const isNameError = submitAttempted && name.trim().length === 0;
   const isAadharError = submitAttempted && aadhar.replace(/\s/g, '').length !== 12;
@@ -25,7 +26,7 @@ export function IdentityForm({ name, setName, aadhar, setAadhar, submitAttempted
           value={name}
           onChange={handleNameChange}
           placeholder="Parash Rautela" 
-          className={`w-full bg-[#F5F5F5] rounded-[8px] outline-none px-4 py-3.5 text-[15px] text-[#374151] placeholder:text-[#9CA3AF] transition-shadow ${isNameError ? 'border-[1.5px] border-[#EF4444]' : 'border-none focus:ring-2 focus:ring-black/10'}`}
+          className={`w-full bg-[#F5F5F5] rounded-[8px] outline-none px-[clamp(10px,1.5vw,16px)] py-[clamp(8px,1.2vw,14px)] text-[clamp(13px,1.4vw,15px)] text-[#374151] placeholder:text-[#9CA3AF] transition-shadow ${isNameError ? 'border-[1.5px] border-[#EF4444]' : 'border-none focus:ring-2 focus:ring-black/10'}`}
         />
         {isNameError && <span className="text-[12px] text-[#EF4444]">Name is required</span>}
       </div>
@@ -37,7 +38,7 @@ export function IdentityForm({ name, setName, aadhar, setAadhar, submitAttempted
           value={aadhar}
           onChange={handleAadharChange}
           placeholder="•••• •••• •••• ••••" 
-          className={`w-full bg-[#F5F5F5] rounded-[8px] outline-none px-4 py-3.5 text-[15px] text-[#374151] placeholder:text-[#9CA3AF] transition-shadow ${isAadharError ? 'border-[1.5px] border-[#EF4444]' : 'border-none focus:ring-2 focus:ring-black/10'}`}
+          className={`w-full bg-[#F5F5F5] rounded-[8px] outline-none px-[clamp(10px,1.5vw,16px)] py-[clamp(8px,1.2vw,14px)] text-[clamp(13px,1.4vw,15px)] text-[#374151] placeholder:text-[#9CA3AF] transition-shadow ${isAadharError ? 'border-[1.5px] border-[#EF4444]' : 'border-none focus:ring-2 focus:ring-black/10'}`}
         />
         {isAadharError && <span className="text-[12px] text-[#EF4444]">Enter a valid 12-digit Aadhar number</span>}
       </div>

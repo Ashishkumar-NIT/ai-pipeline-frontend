@@ -1,5 +1,4 @@
 "use client";
-
 import { useRouter } from "next/navigation";
 
 export function SubmittedFooter() {
@@ -16,7 +15,7 @@ export function SubmittedFooter() {
       </div>
       <button 
         onClick={() => router.push('/dashboard')}
-        className="w-full md:w-auto bg-[#000000] text-white font-extrabold rounded-[10px] px-8 py-[14px] hover:bg-black/90 transition-colors tracking-wide"
+        className={`w-full md:w-auto bg-[#000000] text-white font-extrabold rounded-[10px] px-[clamp(24px,3vw,40px)] py-[clamp(10px,1.2vw,14px)] text-[clamp(13px,1.4vw,15px)] hover:bg-black/90 transition-colors tracking-wide`}
       >
         I understand
       </button>

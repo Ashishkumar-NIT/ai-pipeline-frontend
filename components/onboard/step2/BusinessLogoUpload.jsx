@@ -1,3 +1,4 @@
+"use client";
 import { ImageUploadBox } from "../ImageUploadBox";
 
 export function BusinessLogoUpload({ logoImage, setLogoImage, submitAttempted }) {

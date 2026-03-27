@@ -10,7 +10,7 @@ export default function OnboardStep1Page() {
       heading="Let's get to know you"
       description="We need a few details to verify who you are. This keeps your account and your business safe."
     >
-      <div className="flex flex-col w-full max-w-[500px] mx-auto lg:mx-0 lg:ml-auto lg:pr-4">
+      <div className="flex flex-col w-full max-w-[500px] mx-auto md:mx-0 md:ml-auto md:pr-4">
         <StepIndicator currentStep={1} totalSteps={3} />
         <Step1Container />
       </div>
