@@ -1,7 +1,6 @@
 import { OnboardLayout } from "../../../components/onboard/OnboardLayout";
 import { StepIndicator } from "../../../components/onboard/StepIndicator";
-import { DocumentUpload } from "../../../components/onboard/step3/DocumentUpload";
-import { Step3Footer } from "../../../components/onboard/step3/Step3Footer";
+import { Step3Container } from "../../../components/onboard/step3/Step3Container";
 
 export const metadata = { title: "Step 3 of 3 — Onboarding" };
 
@@ -12,16 +11,9 @@ export default function OnboardStep3Page() {
       description="Upload your PAN and GST certificate so we can verify your business. This is a one-time process."
       backRoute="/onboard/step2"
     >
-      <div className="flex flex-col w-full max-w-[500px] mx-auto md:mx-0 md:ml-auto md:pr-4">
+      <div className="flex flex-col w-full max-w-[500px] mx-auto lg:mx-0 lg:ml-auto lg:pr-4">
         <StepIndicator currentStep={3} totalSteps={3} />
-        
-        <div className="flex flex-col gap-8 w-full mt-10">
-          <DocumentUpload />
-        </div>
-        
-        <div className="mt-8 w-full">
-          <Step3Footer />
-        </div>
+        <Step3Container />
       </div>
     </OnboardLayout>
   );

@@ -1,19 +1,21 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
 
-export function ImageUploadBox({ label, image, onUpload, onRemove, error, objectFit = "cover" }) {
+export function ImageUploadBox({ label, image, onUpload, onRemove, error, objectFit = "cover", accept = "image/jpeg, image/png, image/webp" }) {
   const inputRef = useRef(null);
   const [preview, setPreview] = useState(null);
 
+  const isPdf = image instanceof File && image.type === "application/pdf";
+
   useEffect(() => {
-    if (image instanceof File) {
+    if (image instanceof File && !isPdf) {
       const url = URL.createObjectURL(image);
       setPreview(url);
       return () => URL.revokeObjectURL(url);
     } else {
       setPreview(image);
     }
-  }, [image]);
+  }, [image, isPdf]);
 
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
@@ -22,7 +24,7 @@ export function ImageUploadBox({ label, image, onUpload, onRemove, error, object
     }
   };
 
-  const hasImage = !!preview;
+  const hasImage = !!image || !!preview;
   const borderClass = hasImage 
     ? "border-[2px] border-solid border-[#22C55E]" 
     : error 
@@ -43,7 +45,16 @@ export function ImageUploadBox({ label, image, onUpload, onRemove, error, object
       >
         {hasImage ? (
           <>
-            <img src={preview} alt={label} className={imageClassName} />
+            {isPdf ? (
+              <div className="flex flex-col items-center justify-center p-4">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-[42px] h-[42px] text-red-500 mb-3">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m6.75 12l-3-3m0 0l-3 3m3-3v6m-1.5-15H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                </svg>
+                <span className="text-[11px] font-medium text-[#6B7280] text-center w-full max-w-[120px] truncate px-2">{image.name}</span>
+              </div>
+            ) : (
+              <img src={preview} alt={label} className={imageClassName} />
+            )}
             <button 
               type="button"
               onClick={(e) => {
@@ -52,7 +63,7 @@ export function ImageUploadBox({ label, image, onUpload, onRemove, error, object
                 if (onRemove) onRemove();
                 if (inputRef.current) inputRef.current.value = "";
               }}
-              className="absolute top-2 right-2 w-7 h-7 bg-white rounded-full flex items-center justify-center text-gray-500 shadow-sm hover:text-black transition-colors z-10"
+              className="absolute top-2 right-2 w-7 h-7 bg-white rounded-full flex items-center justify-center text-[#6B7280] shadow-sm hover:text-black transition-colors z-10"
             >
               <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-[14px] h-[14px]"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
@@ -66,7 +77,7 @@ export function ImageUploadBox({ label, image, onUpload, onRemove, error, object
         <input 
           type="file" 
           ref={inputRef}
-          accept="image/jpeg, image/png, image/webp"
+          accept={accept}
           className="hidden"
           onChange={handleFileChange}
         />
