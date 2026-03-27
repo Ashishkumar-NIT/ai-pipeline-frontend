@@ -1,0 +1,46 @@
+export function IdentityForm({ name, setName, aadhar, setAadhar, submitAttempted }) {
+  const isNameError = submitAttempted && name.trim().length === 0;
+  const isAadharError = submitAttempted && aadhar.replace(/\s/g, '').length !== 12;
+
+  const handleNameChange = (e) => {
+    const val = e.target.value;
+    if (/^[A-Za-z\s]*$/.test(val)) {
+      setName(val);
+    }
+  };
+
+  const handleAadharChange = (e) => {
+    let digits = e.target.value.replace(/\D/g, '').slice(0, 12);
+    let formatted = digits.replace(/(\d{4})(?=\d)/g, '$1 ').trim();
+    setAadhar(formatted);
+  };
+
+  return (
+    <div className="flex flex-col gap-6 w-full">
+      <div className="flex flex-col gap-2">
+        <label htmlFor="name" className="text-[13px] font-semibold text-[#374151]">Name*</label>
+        <input 
+          id="name"
+          type="text" 
+          value={name}
+          onChange={handleNameChange}
+          placeholder="Parash Rautela" 
+          className={`w-full bg-[#F5F5F5] rounded-[8px] outline-none px-4 py-3.5 text-[15px] text-[#374151] placeholder:text-[#9CA3AF] transition-shadow ${isNameError ? 'border-[1.5px] border-[#EF4444]' : 'border-none focus:ring-2 focus:ring-black/10'}`}
+        />
+        {isNameError && <span className="text-[12px] text-[#EF4444]">Name is required</span>}
+      </div>
+      <div className="flex flex-col gap-2">
+        <label htmlFor="aadhar" className="text-[13px] font-semibold text-[#374151]">Aadhar Number*</label>
+        <input 
+          id="aadhar"
+          type="text" 
+          value={aadhar}
+          onChange={handleAadharChange}
+          placeholder="•••• •••• •••• ••••" 
+          className={`w-full bg-[#F5F5F5] rounded-[8px] outline-none px-4 py-3.5 text-[15px] text-[#374151] placeholder:text-[#9CA3AF] transition-shadow ${isAadharError ? 'border-[1.5px] border-[#EF4444]' : 'border-none focus:ring-2 focus:ring-black/10'}`}
+        />
+        {isAadharError && <span className="text-[12px] text-[#EF4444]">Enter a valid 12-digit Aadhar number</span>}
+      </div>
+    </div>
+  );
+}
