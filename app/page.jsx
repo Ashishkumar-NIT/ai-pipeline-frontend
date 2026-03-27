@@ -22,7 +22,7 @@ export default async function HomePage() {
   if (user) {
     const role = user.user_metadata?.role;
     if (!role) redirect("/select-role");
-    if (role === "wholesaler") redirect("/dashboard/add-product");
+    if (role === "wholesaler") redirect("/dashboard/wholesaler/add-product");
   }
 
   const products = await getAllProducts();

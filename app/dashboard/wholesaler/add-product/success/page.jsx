@@ -1,7 +1,7 @@
-import { getAuthUser } from "../../../../lib/supabase/queries";
+import { getAuthUser } from "../../../../../lib/supabase/queries";
 import { redirect } from "next/navigation";
-import { MinimalHeader } from "../../../../components/product/MinimalHeader";
-import { SubmittedPage } from "../../../../components/product/SubmittedPage";
+import { MinimalHeader } from "../../../../../components/product/MinimalHeader";
+import { SubmittedPage } from "../../../../../components/product/SubmittedPage";
 
 export const metadata = { title: "Submitted — Celestique" };
 

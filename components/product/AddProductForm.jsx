@@ -102,8 +102,8 @@ export function AddProductForm() {
 
     try {
       setStatus("uploading");
-      const titleToUse = form.title || 
-        JEWELLERY_TYPES.find((t) => t.value === form.jewellery_type)?.label || 
+      const titleToUse = form.title ||
+        JEWELLERY_TYPES.find((t) => t.value === form.jewellery_type)?.label ||
         undefined;
 
       const { product_id, raw_image_url } = await uploadProduct({
@@ -136,7 +136,7 @@ export function AddProductForm() {
       }
 
       setStatus("done");
-      router.push("/dashboard/add-product/success");
+      router.push("/dashboard/wholesaler/add-product/success");
     } catch (err) {
       setStatus("error");
       setError(err.message);
@@ -177,7 +177,7 @@ export function AddProductForm() {
       <form onSubmit={handleSubmit} className="flex flex-col gap-6 md:gap-10">
 
         {/* ── Section 1 — Product Image ── */}
-        <div className="flex flex-col md:flex-row md:gap-[100px] md:items-start gap-4">
+        <div className="flex flex-col md:flex-row md:gap-[100px] md:items-start gap-14">
           {/* Left / Top — Info */}
           <div className="flex flex-col gap-3 md:gap-4 md:max-w-[360px]">
             <div className="flex items-center gap-3 md:-ml-10">

@@ -400,7 +400,7 @@ document.getElementById("upload-form").addEventListener("submit", async (e) => {
 ---
 
 ## CORS
-If your frontend runs on a different origin (for example `http://localhost:3000`), the backend must allow that origin via CORS. Note: CORS works at the origin level — do not include path segments such as `/dashboard/add-product` in the allowed origins list; use the origin only (e.g. `http://localhost:3000`).
+If your frontend runs on a different origin (for example `http://localhost:3000`), the backend must allow that origin via CORS. Note: CORS works at the origin level — do not include path segments such as `/dashboard/wholesaler/add-product` in the allowed origins list; use the origin only (e.g. `http://localhost:3000`).
 
 Below is a small, copy-pasteable FastAPI example that allows your local frontend to call the API and supports credentials (cookies) if required.
 

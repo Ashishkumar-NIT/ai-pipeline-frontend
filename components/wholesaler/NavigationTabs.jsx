@@ -21,7 +21,7 @@ function UploadIcon() {
 
 const tabs = [
   { id: "home", label: "Home", icon: <HomeIcon />, href: "/dashboard/wholesaler" },
-  { id: "upload", label: "Upload", icon: <UploadIcon />, href: "/dashboard/add-product" },
+  { id: "upload", label: "Upload", icon: <UploadIcon />, href: "/dashboard/wholesaler/add-product" },
   { id: "catalogue", label: "My Catalogue", icon: "/image/Vector.png", href: "/dashboard/wholesaler/catalogue" },
 ];
 

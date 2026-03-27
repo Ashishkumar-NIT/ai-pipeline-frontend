@@ -9,7 +9,7 @@ export default function WholesalerLayout({ children }) {
   return (
     <div>
       {children}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

@@ -27,7 +27,7 @@ export default async function MyUploadsPage() {
       <header className="sticky top-0 z-50 flex items-center justify-between border-b border-celestique-dark/10 bg-celestique-cream/90 backdrop-blur-md px-6 md:px-12 py-6">
         <div className="flex items-center gap-6">
           <Link
-            href="/dashboard/add-product"
+            href="/dashboard/wholesaler/add-product"
             className="text-[10px] uppercase tracking-[0.2em] text-celestique-dark/60 hover:text-celestique-dark transition-colors flex items-center gap-3"
           >
             <span className="text-lg leading-none">&larr;</span>

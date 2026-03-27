@@ -1,8 +1,8 @@
-import { getAuthUser } from "../../../lib/supabase/queries";
+import { getAuthUser } from "../../../../lib/supabase/queries";
 import { redirect } from "next/navigation";
-import { AddProductForm } from "../../../components/product/AddProductForm";
-import { BackToDashboardButton } from "../../../components/product/BackToDashboardButton";
-import { SignOutButton } from "../../../components/auth/SignOutButton";
+import { AddProductForm } from "../../../../components/product/AddProductForm";
+import { BackToDashboardButton } from "../../../../components/product/BackToDashboardButton";
+import { SignOutButton } from "../../../../components/auth/SignOutButton";
 
 export const metadata = { title: "Add Product — Celestique" };
 
@@ -25,7 +25,14 @@ export default async function AddProductPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col gap-6 md:gap-10 w-full max-w-full md:max-w-[1100px] mx-auto px-4 md:px-10 py-6 md:py-10">
+      {/* 
+        Alignment Controls:
+        - Mobile: w-full px-4 py-6
+        - Tablet (md): md:max-w-[768px] md:mx-auto md:px-8 md:py-8
+        - Desktop (lg): lg:max-w-[880px] lg:mx-auto lg:px-10 lg:py-10
+        (Change mx-auto to ml-0 for left-alignment, or adjust max-w as needed)
+      */}
+      <main className="flex-1 flex flex-col gap-6 w-full px-4 py-6 md:gap-8 md:max-w-[768px] md:mx-auto md:px-8 md:py-8 lg:gap-10 lg:max-w-[880px] lg:mx-auto lg:px-10 lg:py-10">
         <AddProductForm />
       </main>
 
