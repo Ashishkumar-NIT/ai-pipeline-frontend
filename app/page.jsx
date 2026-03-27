@@ -62,10 +62,10 @@ export default async function HomePage() {
               / PHILOSOPHY
             </span>
             <h2 className="font-serif text-4xl md:text-6xl leading-[1.1] tracking-tight text-celestique-dark italic">
-              "Every piece is living energy, enclosed in form."
+              &quot;Every piece is living energy, enclosed in form.&quot;
             </h2>
             <p className="text-sm md:text-base text-celestique-dark/60 leading-relaxed font-sans max-w-md">
-              We believe in the resonance between stone and spirit. Our jewelry isn't just worn; it's a conversation with the natural world, captured in gold and silver.
+              We believe in the resonance between stone and spirit. Our jewelry isn&apos;t just worn; it&apos;s a conversation with the natural world, captured in gold and silver.
             </p>
             <div className="pt-8">
               <Link href="/signup" className="group text-[10px] uppercase tracking-[0.2em] font-bold flex items-center gap-4 hover:gap-6 transition-all duration-300">
@@ -93,7 +93,7 @@ export default async function HomePage() {
             </div>
             {/* Float badge */}
             <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-celestique-dark rounded-full flex items-center justify-center text-celestique-cream text-center p-4 transform -rotate-12 hidden md:flex">
-              <span className="text-[9px] uppercase tracking-widest font-bold">Nature's Own Design 2025</span>
+              <span className="text-[9px] uppercase tracking-widest font-bold">Nature&apos;s Own Design 2025</span>
             </div>
           </div>
 

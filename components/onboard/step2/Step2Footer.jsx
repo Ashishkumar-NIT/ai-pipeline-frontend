@@ -1,9 +1,16 @@
 "use client";
-
 import { useRouter } from "next/navigation";
 
-export function Step2Footer() {
+export function Step2Footer({ isFormValid, onSubmitAttempt }) {
   const router = useRouter();
+
+  const handleNext = () => {
+    if (isFormValid) {
+      router.push('/onboard/step3');
+    } else {
+      onSubmitAttempt();
+    }
+  };
 
   return (
     <div className="w-full flex flex-col md:flex-row items-center justify-between gap-6 md:gap-0 pt-6 border-t border-[#E0E0E0] mt-4">
@@ -11,8 +18,10 @@ export function Step2Footer() {
         *Your documents are encrypted and only used for verification. We never share them.
       </p>
       <button 
-        onClick={() => router.push('/onboard/step3')}
-        className="w-full md:w-auto bg-[#000000] text-white font-extrabold rounded-[10px] px-10 py-[14px] hover:bg-black/90 transition-colors tracking-wide"
+        type="button"
+        onClick={handleNext}
+        disabled={!isFormValid}
+        className={`w-full md:w-auto font-extrabold rounded-[10px] px-10 py-[14px] transition-colors tracking-wide ${isFormValid ? 'bg-[#000000] text-white hover:bg-black/90 cursor-pointer' : 'bg-[#D1D5DB] text-white cursor-not-allowed'}`}
       >
         Next
       </button>

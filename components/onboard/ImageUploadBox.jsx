@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
 
-export function ImageUploadBox({ label, image, onUpload, onRemove, error }) {
+export function ImageUploadBox({ label, image, onUpload, onRemove, error, objectFit = "cover" }) {
   const inputRef = useRef(null);
   const [preview, setPreview] = useState(null);
 
@@ -29,6 +29,10 @@ export function ImageUploadBox({ label, image, onUpload, onRemove, error }) {
       ? "border-[1.5px] border-dashed border-[#EF4444]"
       : "border-[1.5px] border-dashed border-[#2563EB]";
 
+  const imageClassName = objectFit === "contain" 
+    ? "w-full h-full object-contain p-4" 
+    : "w-full h-full object-cover";
+
   return (
     <div className="flex flex-col gap-2 w-full">
       {label && <span className="text-[13px] font-semibold text-[#374151]">{label}</span>}
@@ -39,7 +43,7 @@ export function ImageUploadBox({ label, image, onUpload, onRemove, error }) {
       >
         {hasImage ? (
           <>
-            <img src={preview} alt={label} className="w-full h-full object-cover" />
+            <img src={preview} alt={label} className={imageClassName} />
             <button 
               type="button"
               onClick={(e) => {
