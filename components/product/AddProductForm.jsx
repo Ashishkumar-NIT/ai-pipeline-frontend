@@ -190,18 +190,18 @@ export function AddProductForm() {
           <div className="flex flex-col gap-4 max-w-[360px]">
             <div className="flex items-center gap-3">
               <NumberIndicator number={1} />
-              <h2 className="text-lg font-semibold text-[#111827] font-gilroy font-bold">Product image</h2>
+              <h2 className="text-3xl font-semibold text-[#111827] font-gilroy font-bold">Product image</h2>
             </div>
             <div className="text-sm text-[#6B7280] leading-relaxed font-gilroy">
               <p className="mb-3">
                 Upload a clear image. We&apos;ll remove the background first, then enhance it.
               </p>
-              <p className="font-medium text-[#374151] mb-2">Get the best result from your photo:</p>
-              <ul className="list-disc list-inside space-y-1 text-[#6B7280]">
-                <li>Place the jewellery on a background that contrasts with the product</li>
-                <li>Upload a clear well-lit photo</li>
+              <p className="font-bold text-[#374151] mb-2">Get the best result from your photo:</p>
+              <ol className="list-decimal list-inside space-y-1 text-[#6B7280]">
+                <li >Place the jewellery on a background that contrasts with the product.</li>
+                <li>Upload a clear well-lit photo.</li>
                 <li>Keep only the product in the frame</li>
-              </ul>
+              </ol>
             </div>
           </div>
 
@@ -212,20 +212,20 @@ export function AddProductForm() {
         </div>
 
         {/* Section 3 - Essential Details */}
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
           <div className="flex items-center gap-3">
             <NumberIndicator number={2} />
-            <h2 className="text-lg font-semibold text-[#111827] font-gilroy">Essential details</h2>
+            <h2 className="text-3xl font-semibold text-[#111827] font-gilroy">Essential details</h2>
           </div>
 
           {/* Row 1 - Title with description */}
-          <div className="flex justify-between gap-10 items-start">
-            <div className="max-w-[300px]">
+          <div className="flex w-220 justify-between gap-1 items-start">
+            <div className="">
               <p className="text-sm text-[#6B7280] leading-relaxed font-gilroy">
-                Define the core identity of your jewelry piece with a clear title and key attributes.
+                Add the key information that helps retailers <br />understand and find this peice.
               </p>
             </div>
-            <div className="flex-1 max-w-[500px]">
+            <div className="flex-1 max-w-[430px]">
               <Input
                 id="title"
                 name="title"
@@ -240,8 +240,8 @@ export function AddProductForm() {
           </div>
 
           {/* Row 2 - Type and Material Category */}
-          <div className="flex gap-5">
-            <div className="flex-1">
+          <div className="flex gap-5 w-220">
+            <div className="flex-1 ">
               <Select
                 id="jewellery_type"
                 label="Type"
@@ -264,7 +264,7 @@ export function AddProductForm() {
           </div>
 
           {/* Row 3 - Style, Size, Purity */}
-          <div className="flex gap-5">
+          <div className="flex gap-5 w-220">
             <div className="flex-1">
               <Select
                 id="style"
@@ -273,6 +273,7 @@ export function AddProductForm() {
                 value={form.style}
                 onChange={(e) => setField("style", e.target.value)}
                 placeholder="select"
+      
               />
             </div>
             <div className="flex-1 flex gap-5">
@@ -301,19 +302,19 @@ export function AddProductForm() {
         </div>
 
         {/* Section 4 - Specifications */}
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-2">
           <div className="flex items-center gap-3">
             <NumberIndicator number={3} />
-            <h2 className="text-lg font-semibold text-[#111827] font-gilroy ">Specifications</h2>
+            <h2 className="text-3xl font-semibold text-[#111827] font-gilroy ">Specifications</h2>
           </div>
 
           {/* Block 1 - Description */}
           <p className="text-sm text-[#6B7280] leading-relaxed font-gilroy">
-            Precise measurements help retailers understand your product better. Enter the weight details and availability information.
+            Add weight and stone details so retailers <br /> know exactly what they're getting.
           </p>
 
           {/* Block 2 - Weight Inputs */}
-          <div className="flex justify-between gap-5">
+          <div className="flex gap-5 w-100">
             <div className="flex-1">
               <InputWithSuffix
                 id="grossWeight"
@@ -356,13 +357,13 @@ export function AddProductForm() {
           </div>
 
           {/* Block 3 - Stock Toggle */}
-          <div className="flex justify-between items-center py-4">
+          <div className="flex justify-between items-center py-4 w-174">
             <div className="flex flex-col gap-1">
-              <span className="text-sm font-medium text-[#111827] font-gilroy">Available in Stock</span>
-              <span className="text-M text-[#6B7280] font-gilroy ">Is this piece ready for immediate shipment?</span>
+              <span className="text-sm font-bold text-[#111827] font-gilroy">Available in Stock</span>
+              <span className="text-M text-[#6B7280]  font-gilroy ">Is this piece ready to shift right away?</span>
             </div>
             <Toggle
-              id="stockAvailable"
+              id="stockAvailable "
               label=""
               checked={form.stockAvailable}
               onChange={(val) => setField("stockAvailable", val)}
@@ -371,7 +372,7 @@ export function AddProductForm() {
 
           {/* Block 4 - Production Time (only shown when stock is OFF) */}
           {!form.stockAvailable && (
-            <div className="animate-fade-in">
+            <div className="animate-fade-in w-110">
               <InputWithSuffix
                 id="makeToOrderDays"
                 label="Production time"
@@ -408,9 +409,9 @@ export function AddProductForm() {
           </p>
           <button
             type="submit"
-            className="bg-black text-white px-5 py-3 rounded-lg font-medium cursor-pointer hover:bg-black/90 transition-colors font-gilroy"
+            className="bg-black text-white px-7 py-3 rounded-lg font-medium cursor-pointer hover:bg-black/90 transition-colors font-gilroy"
           >
-            Submit Product
+            Submit
           </button>
         </div>
       </form>
