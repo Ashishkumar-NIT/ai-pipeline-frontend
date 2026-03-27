@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "../ui/Button";
 import { Input } from "../ui/Input";
@@ -25,6 +25,7 @@ const ROLES = [
 
 export function SignUpForm() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const urlError = searchParams.get("error");
   let decodedUrlError = null;
   if (urlError) {
@@ -52,6 +53,8 @@ export function SignUpForm() {
     if (result?.error) {
       setError(result.error);
       setLoading(false);
+    } else {
+      router.push("/onboard");
     }
   }
 
