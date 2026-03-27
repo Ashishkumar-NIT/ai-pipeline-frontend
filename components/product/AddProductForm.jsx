@@ -249,6 +249,7 @@ export function AddProductForm() {
                 value={form.jewellery_type}
                 onChange={(e) => setField("jewellery_type", e.target.value)}
                 placeholder="select"
+                placeholderClassName="text-black"
               />
             </div>
             <div className="flex-1">
@@ -259,6 +260,7 @@ export function AddProductForm() {
                 value={form.category}
                 onChange={(e) => setField("category", e.target.value)}
                 placeholder="select"
+                placeholderClassName="text-black"
               />
             </div>
           </div>
@@ -273,7 +275,8 @@ export function AddProductForm() {
                 value={form.style}
                 onChange={(e) => setField("style", e.target.value)}
                 placeholder="select"
-      
+                placeholderClassName="text-black"
+       
               />
             </div>
             <div className="flex-1 flex gap-5">
@@ -285,6 +288,7 @@ export function AddProductForm() {
                   value={form.size}
                   onChange={(e) => setField("size", e.target.value)}
                   placeholder="select"
+                  placeholderClassName="text-black"
                 />
               </div>
               <div className="flex-1">
@@ -295,6 +299,7 @@ export function AddProductForm() {
                   value={form.metalPurity}
                   onChange={(e) => setField("metalPurity", e.target.value)}
                   placeholder="select"
+                  placeholderClassName="text-black"
                 />
               </div>
             </div>
@@ -403,7 +408,7 @@ export function AddProductForm() {
         )}
 
         {/* Section 5 - Submit Area */}
-        <div className="flex justify-end items-center mt-5 gap-3">
+        <div className="flex justify-end items-center mt-0 gap-3 w-220">
           <p className="text-[8px] font-bold text-[#000000] max-w-[500px] font-gilroy mt-6.5 ">
            *By submitting, you allow us to display your product details <br />and images to retailers on the platform.
           </p>

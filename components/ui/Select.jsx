@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 
-export function Select({ id, label, options = [], value, onChange, placeholder = "select", ...props }) {
+export function Select({ id, label, options = [], value, onChange, placeholder = "select", placeholderClassName = "text-[#9CA3AF]", ...props }) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
 
@@ -61,7 +61,7 @@ export function Select({ id, label, options = [], value, onChange, placeholder =
               : "hover:border-[#d1d5db]"
           }`}
         >
-          <span className={selectedOption ? "text-[#111827]" : "text-[#9CA3AF]"}>
+          <span className={selectedOption ? "text-[#111827]" : placeholderClassName}>
             {selectedOption ? selectedOption.label : placeholder}
           </span>
           <svg
