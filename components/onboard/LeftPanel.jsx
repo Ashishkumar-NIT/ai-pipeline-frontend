@@ -1,4 +1,4 @@
-export function LeftPanel() {
+export function LeftPanel({ heading, description }) {
   return (
     <div className="flex flex-col items-start gap-8 max-w-[400px]">
       <div className="flex items-center gap-3">
@@ -10,10 +10,10 @@ export function LeftPanel() {
       
       <div className="flex flex-col gap-4">
         <h1 className="text-[28px] md:text-[32px] font-extrabold text-[#000000] leading-tight">
-          Let&apos;s get to know you
+          {heading}
         </h1>
         <p className="text-[14px] text-[#9CA3AF] leading-relaxed max-w-[340px]">
-          We need a few details to verify who you are. This keeps your account and your business safe.
+          {description}
         </p>
       </div>
     </div>

@@ -8,9 +8,12 @@ export const metadata = { title: "Step 1 of 3 — Onboarding" };
 
 export default function OnboardStep1Page() {
   return (
-    <OnboardLayout>
+    <OnboardLayout 
+      heading="Let's get to know you"
+      description="We need a few details to verify who you are. This keeps your account and your business safe."
+    >
       <div className="flex flex-col w-full max-w-[500px] mx-auto md:mx-0 md:ml-auto md:pr-4">
-        <StepIndicator />
+        <StepIndicator currentStep={1} totalSteps={3} />
         
         <div className="flex flex-col gap-8 w-full mt-10">
           <IdentityForm />
