@@ -73,7 +73,7 @@ const INITIAL_FORM = {
 
 function NumberIndicator({ number }) {
   return (
-    <div className="w-[26px] h-[26px] rounded-full bg-black text-white flex items-center justify-center text-xs font-medium">
+    <div className="w-[26px] h-[26px] rounded-full bg-black text-white flex items-center justify-center text-xs font-medium shrink-0">
       {number}
     </div>
   );
@@ -174,58 +174,68 @@ export function AddProductForm() {
   }
 
   return (
-    <div className="flex flex-col gap-10">
-      {/* Section 1 - Page Title */}
+    <div className="flex flex-col gap-6 md:gap-10">
+      {/* Page Title */}
       <div className="flex flex-col items-center text-center gap-2.5">
-        <h1 className="text-4xl font-semibold text-[#111827] font-cirka">Add new product</h1>
+        <h1 className="text-[28px] md:text-4xl font-semibold text-[#111827] font-cirka">Add new product</h1>
         <p className="text-base text-[#6B7280] font-gilroy font-medium">
           Enter the details below to create a sparkling new listing.
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-10">
-        {/* Section 2 - Product Image Upload */}
-        <div className="flex flex-row gap-[100px] items-start">
-          {/* Left - Information */}
-          <div className="flex flex-col gap-4 max-w-[360px]">
-            <div className="flex items-center gap-3 -ml-10">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-6 md:gap-10">
+
+        {/* ── Section 1 — Product Image ── */}
+        <div className="flex flex-col md:flex-row md:gap-[100px] md:items-start gap-4">
+          {/* Left / Top — Info */}
+          <div className="flex flex-col gap-3 md:gap-4 md:max-w-[360px]">
+            <div className="flex items-center gap-3 md:-ml-10">
               <NumberIndicator number={1} />
-              <h2 className="text-3xl font-semibold text-[#111827] font-gilroy font-bold">Product image</h2>
+              <h2 className="text-[20px] md:text-3xl font-semibold text-[#111827] font-gilroy font-bold">Product image</h2>
             </div>
+            <p className="text-sm text-[#6B7280] leading-relaxed font-gilroy">
+              Upload a clear image. We&apos;ll remove the background first, then enhance it.
+            </p>
+
+            {/* Tips box */}
             <div className="text-sm text-[#6B7280] leading-relaxed font-gilroy">
-              <p className="mb-3">
-                Upload a clear image. We&apos;ll remove the background first, then enhance it.
-              </p>
               <p className="font-bold text-[#374151] mb-2">Get the best result from your photo:</p>
-              <ol className="list-decimal list-inside space-y-1 text-[#6B7280]">
-                <li >Place the jewellery on a background that contrasts with the product.</li>
+              {/* Ordered list on desktop, bullet list on mobile */}
+              <ol className="hidden md:block list-decimal list-inside space-y-1 text-[#6B7280]">
+                <li>Place the jewellery on a background that contrasts with the product.</li>
                 <li>Upload a clear well-lit photo.</li>
                 <li>Keep only the product in the frame</li>
               </ol>
+              <ul className="md:hidden list-disc list-inside space-y-1 text-[#6B7280]">
+                <li>Place the jewellery on a background that contrasts with the product.</li>
+                <li>Upload a clear well-lit photo.</li>
+                <li>Keep only the product in the frame</li>
+              </ul>
             </div>
           </div>
 
-          {/* Right - Image Upload Area */}
-          <div className="flex-1">
+          {/* Right / Bottom — Upload box */}
+          <div className="flex-1 w-full">
             <ImageUpload onFileChange={setImageFile} />
           </div>
         </div>
 
-        {/* Section 3 - Essential Details */}
+        {/* ── Section 2 — Essential Details ── */}
         <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-3 -ml-10">
+          <div className="flex items-center gap-3 md:-ml-10">
             <NumberIndicator number={2} />
-            <h2 className="text-3xl font-semibold text-[#111827] font-gilroy">Essential details</h2>
+            <h2 className="text-[20px] md:text-3xl font-semibold text-[#111827] font-gilroy">Essential details</h2>
           </div>
 
-          {/* Row 1 - Title with description */}
-          <div className="flex w-220 justify-between gap-1 items-start">
-            <div className="">
+          {/* Description + Product Title */}
+          {/* Desktop: side-by-side | Mobile: stacked */}
+          <div className="flex flex-col md:flex-row md:w-220 md:justify-between md:gap-1 md:items-start gap-4">
+            <div>
               <p className="text-sm text-[#6B7280] leading-relaxed font-gilroy">
-                Add the key information that helps retailers <br />understand and find this peice.
+                Add the key information that helps retailers <br className="hidden md:inline" />understand and find this peice.
               </p>
             </div>
-            <div className="flex-1 max-w-[430px]">
+            <div className="w-full md:flex-1 md:max-w-[430px]">
               <Input
                 id="title"
                 name="title"
@@ -239,9 +249,9 @@ export function AddProductForm() {
             </div>
           </div>
 
-          {/* Row 2 - Type and Material Category */}
-          <div className="flex gap-5 w-220">
-            <div className="flex-1 ">
+          {/* Type + Material Category — 2 cols on desktop, stacked on mobile */}
+          <div className="flex flex-col md:flex-row md:gap-5 md:w-220 gap-4">
+            <div className="w-full md:flex-1">
               <Select
                 id="jewellery_type"
                 label="Type"
@@ -252,7 +262,7 @@ export function AddProductForm() {
                 placeholderClassName="text-black"
               />
             </div>
-            <div className="flex-1">
+            <div className="w-full md:flex-1">
               <Select
                 id="category"
                 label="Material Category"
@@ -265,9 +275,9 @@ export function AddProductForm() {
             </div>
           </div>
 
-          {/* Row 3 - Style, Size, Purity */}
-          <div className="flex gap-5 w-220">
-            <div className="flex-1">
+          {/* Style, Size, Purity — 3 cols on desktop, stacked on mobile */}
+          <div className="flex flex-col md:flex-row md:gap-5 md:w-220 gap-4">
+            <div className="w-full md:flex-1">
               <Select
                 id="style"
                 label="Style Aesthetic"
@@ -276,51 +286,47 @@ export function AddProductForm() {
                 onChange={(e) => setField("style", e.target.value)}
                 placeholder="select"
                 placeholderClassName="text-black"
-       
               />
             </div>
-            <div className="flex-1 flex gap-5">
-              <div className="flex-1">
-                <Select
-                  id="size"
-                  label="Size"
-                  options={SIZES}
-                  value={form.size}
-                  onChange={(e) => setField("size", e.target.value)}
-                  placeholder="select"
-                  placeholderClassName="text-black"
-                />
-              </div>
-              <div className="flex-1">
-                <Select
-                  id="metalPurity"
-                  label="Purity"
-                  options={METAL_PURITIES}
-                  value={form.metalPurity}
-                  onChange={(e) => setField("metalPurity", e.target.value)}
-                  placeholder="select"
-                  placeholderClassName="text-black"
-                />
-              </div>
+            <div className="w-full md:flex-1">
+              <Select
+                id="size"
+                label="Size"
+                options={SIZES}
+                value={form.size}
+                onChange={(e) => setField("size", e.target.value)}
+                placeholder="select"
+                placeholderClassName="text-black"
+              />
+            </div>
+            <div className="w-full md:flex-1">
+              <Select
+                id="metalPurity"
+                label="Purity"
+                options={METAL_PURITIES}
+                value={form.metalPurity}
+                onChange={(e) => setField("metalPurity", e.target.value)}
+                placeholder="select"
+                placeholderClassName="text-black"
+              />
             </div>
           </div>
         </div>
 
-        {/* Section 4 - Specifications */}
+        {/* ── Section 3 — Specifications ── */}
         <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-3 -ml-10">
+          <div className="flex items-center gap-3 md:-ml-10">
             <NumberIndicator number={3} />
-            <h2 className="text-3xl font-semibold text-[#111827] font-gilroy ">Specifications</h2>
+            <h2 className="text-[20px] md:text-3xl font-semibold text-[#111827] font-gilroy">Specifications</h2>
           </div>
 
-          {/* Block 1 - Description */}
           <p className="text-sm text-[#6B7280] leading-relaxed font-gilroy">
-            Add weight and stone details so retailers <br /> know exactly what they're getting.
+            Add weight and stone details so retailers <br className="hidden md:inline" /> know exactly what they&apos;re getting.
           </p>
 
-          {/* Block 2 - Weight Inputs */}
-          <div className="flex gap-5 w-64">
-            <div className="flex-1">
+          {/* Weight inputs — 3 cols on desktop, stacked on mobile */}
+          <div className="flex flex-col md:flex-row md:gap-5 md:w-64 gap-4 mt-2">
+            <div className="w-full md:flex-1">
               <InputWithSuffix
                 id="grossWeight"
                 label="Gross Weight"
@@ -333,7 +339,7 @@ export function AddProductForm() {
                 onChange={(e) => setField("grossWeight", e.target.value)}
               />
             </div>
-            <div className="flex-1">
+            <div className="w-full md:flex-1">
               <InputWithSuffix
                 id="stoneWeight"
                 label="Stone Weight"
@@ -346,7 +352,7 @@ export function AddProductForm() {
                 onChange={(e) => setField("stoneWeight", e.target.value)}
               />
             </div>
-            <div className="flex-1">
+            <div className="w-full md:flex-1">
               <InputWithSuffix
                 id="netWeight"
                 label="Net Weight"
@@ -361,23 +367,23 @@ export function AddProductForm() {
             </div>
           </div>
 
-          {/* Block 3 - Stock Toggle */}
-          <div className="flex justify-between items-center py-4 w-174">
+          {/* Stock Toggle — full-width on both */}
+          <div className="flex justify-between items-center py-4 w-full md:w-174">
             <div className="flex flex-col gap-1">
               <span className="text-sm font-bold text-[#111827] font-gilroy">Available in Stock</span>
-              <span className="text-M text-[#6B7280]  font-gilroy ">Is this piece ready to shift right away?</span>
+              <span className="text-sm text-[#6B7280] font-gilroy">Is this piece ready to shift right away?</span>
             </div>
             <Toggle
-              id="stockAvailable "
+              id="stockAvailable"
               label=""
               checked={form.stockAvailable}
               onChange={(val) => setField("stockAvailable", val)}
             />
           </div>
 
-          {/* Block 4 - Production Time (only shown when stock is OFF) */}
+          {/* Production time — full-width on mobile */}
           {!form.stockAvailable && (
-            <div className="animate-fade-in w-110">
+            <div className="animate-fade-in w-full md:w-110">
               <InputWithSuffix
                 id="makeToOrderDays"
                 label="Production time"
@@ -407,17 +413,34 @@ export function AddProductForm() {
           </div>
         )}
 
-        {/* Section 5 - Submit Area */}
-        <div className="flex justify-end items-center mt-0 gap-3 w-220">
-          <p className="text-[8px] font-bold text-[#000000] max-w-[500px] font-gilroy mt-6.5 ">
-           *By submitting, you allow us to display your product details <br />and images to retailers on the platform.
-          </p>
-          <button
-            type="submit"
-            className="bg-black text-white px-7 py-3 rounded-lg font-medium cursor-pointer hover:bg-black/90 transition-colors font-gilroy"
-          >
-            Submit
-          </button>
+        {/* ── Submit Area ── */}
+        {/* Desktop: disclaimer left-aligned, button right | Mobile: full-width button + centered disclaimer below */}
+        <div className="mt-0 md:w-220">
+          {/* Mobile layout */}
+          <div className="flex flex-col gap-3 md:hidden">
+            <button
+              type="submit"
+              className="w-full bg-black text-white py-3.5 rounded-full font-medium cursor-pointer hover:bg-black/90 transition-colors font-gilroy text-base"
+            >
+              Submit
+            </button>
+            <p className="text-[10px] font-bold text-[#000000] text-center font-gilroy">
+              *By submitting, you allow us to display your product details and images to retailers on the platform.
+            </p>
+          </div>
+
+          {/* Desktop layout */}
+          <div className="hidden md:flex justify-end items-center gap-3">
+            <p className="text-[8px] font-bold text-[#000000] max-w-[500px] font-gilroy mt-6.5">
+              *By submitting, you allow us to display your product details <br />and images to retailers on the platform.
+            </p>
+            <button
+              type="submit"
+              className="bg-black text-white px-7 py-3 rounded-lg font-medium cursor-pointer hover:bg-black/90 transition-colors font-gilroy"
+            >
+              Submit
+            </button>
+          </div>
         </div>
       </form>
     </div>
