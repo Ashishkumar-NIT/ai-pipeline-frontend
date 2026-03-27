@@ -177,7 +177,7 @@ export function AddProductForm() {
       <form onSubmit={handleSubmit} className="flex flex-col gap-6 md:gap-10">
 
         {/* ── Section 1 — Product Image ── */}
-        <div className="flex flex-col md:flex-row md:gap-[100px] md:items-start gap-14">
+        <div className="flex flex-col md:flex-row md:w-220 md:justify-between md:gap-1 md:items-start gap-4">
           {/* Left / Top — Info */}
           <div className="flex flex-col gap-3 md:gap-4 md:max-w-[360px]">
             <div className="flex items-center gap-3 md:-ml-10">
@@ -210,7 +210,7 @@ export function AddProductForm() {
           </div>
 
           {/* Right / Bottom — Upload box */}
-          <div className="flex-1 w-full">
+          <div className="w-full md:flex-1 md:max-w-[430px]">
             <ImageUpload onFileChange={setImageFile} />
           </div>
         </div>
@@ -412,7 +412,7 @@ export function AddProductForm() {
         {/* Desktop: disclaimer left-aligned, button right | Mobile: full-width button + centered disclaimer below */}
         <div className="mt-0 md:w-220">
           {/* Mobile layout */}
-          <div className="flex flex-col gap-3 md:hidden">
+          <div className="flex flex-col gap-3 md:hidden pb-10">
             <button
               type="submit"
               className="w-full bg-black text-white py-3.5 rounded-full font-medium cursor-pointer hover:bg-black/90 transition-colors font-gilroy text-base"
