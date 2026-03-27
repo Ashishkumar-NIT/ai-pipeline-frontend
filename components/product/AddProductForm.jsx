@@ -7,8 +7,9 @@ import { Input } from "../ui/Input";
 import { InputWithSuffix } from "../ui/InputWithSuffix";
 import { ImageUpload } from "./ImageUpload";
 import { ProcessingView } from "./ProcessingView";
-import { processJewelleryImage } from "../../lib/api/products";
+import { uploadProduct, processJewelleryImage } from "../../lib/api/products";
 import { saveProduct } from "../../lib/actions/products";
+import { useRouter } from "next/navigation";
 
 const JEWELLERY_TYPES = [
   { value: "necklace", label: "Necklace" },
@@ -80,12 +81,10 @@ function NumberIndicator({ number }) {
 }
 
 export function AddProductForm() {
+  const router = useRouter();
   const [form, setForm] = useState(INITIAL_FORM);
   const [imageFile, setImageFile] = useState(null);
   const [status, setStatus] = useState("idle");
-  const [variantUrls, setVariantUrls] = useState([]);
-  const [rawImageUrl, setRawImageUrl] = useState(null);
-  const [bgRemovedUrl, setBgRemovedUrl] = useState(null);
   const [error, setError] = useState(null);
 
   function setField(key, value) {
@@ -102,20 +101,16 @@ export function AddProductForm() {
     setError(null);
 
     try {
-      const { product_id, variantUrls: variants, rawImageUrl: raw } = await processJewelleryImage(
-        {
-          file: imageFile,
-          title: form.title ||
-            (form.jewellery_type
-              ? JEWELLERY_TYPES.find((t) => t.value === form.jewellery_type)?.label
-              : undefined),
-          jewellery_type: form.jewellery_type || undefined,
-        },
-        {
-          onStatusChange: setStatus,
-          onBgRemoved: setBgRemovedUrl,
-        }
-      );
+      setStatus("uploading");
+      const titleToUse = form.title || 
+        JEWELLERY_TYPES.find((t) => t.value === form.jewellery_type)?.label || 
+        undefined;
+
+      const { product_id, raw_image_url } = await uploadProduct({
+        file: imageFile,
+        title: titleToUse,
+        jewellery_type: form.jewellery_type || undefined,
+      });
 
       setStatus("saving");
       const saveResult = await saveProduct({
@@ -131,19 +126,17 @@ export function AddProductForm() {
         net_weight: form.netWeight || null,
         gross_weight: form.grossWeight || null,
         stone_weight: form.stoneWeight || null,
-        raw_image_url: raw || null,
-        processed_image_url: variants?.[0] || null,
-        generated_image_urls: variants?.length ? variants : null,
+        raw_image_url: raw_image_url || null,
+        processed_image_url: null,
+        generated_image_urls: null,
       });
 
       if (saveResult?.error) {
-        console.error("[saveProduct]", saveResult.error);
-        setError(`Image processed but metadata save failed: ${saveResult.error}`);
+        throw new Error(saveResult.error);
       }
 
-      setRawImageUrl(raw);
-      setVariantUrls(variants);
       setStatus("done");
+      router.push("/dashboard/add-product/success");
     } catch (err) {
       setStatus("error");
       setError(err.message);
@@ -153,23 +146,21 @@ export function AddProductForm() {
   function handleReset() {
     setForm(INITIAL_FORM);
     setImageFile(null);
-    setVariantUrls([]);
-    setRawImageUrl(null);
-    setBgRemovedUrl(null);
     setError(null);
     setStatus("idle");
   }
 
-  const isProcessing = status === "uploading" || status === "processing" || status === "bg_removed" || status === "saving";
+  const isProcessing = status === "uploading" || status === "saving" || status === "done";
 
-  if (isProcessing || status === "done") {
+  // While uploading/saving/redirecting, show a simple spinner full-screen overlay so the user sees it's working
+  if (isProcessing) {
     return (
-      <ProcessingView
-        status={status}
-        bgRemovedUrl={bgRemovedUrl}
-        variantUrls={variantUrls}
-        onReset={handleReset}
-      />
+      <div className="w-full flex flex-col items-center justify-center min-h-[50vh] animate-fade-in">
+        <div className="w-10 h-10 border-[1.5px] border-celestique-taupe border-t-black rounded-full animate-spin mb-4" />
+        <p className="text-sm font-gilroy text-gray-500 uppercase tracking-widest">
+          {status === "uploading" ? "Uploading Image..." : status === "saving" ? "Saving metadata..." : "Redirecting..."}
+        </p>
+      </div>
     );
   }
 
@@ -328,9 +319,9 @@ export function AddProductForm() {
             Add weight and stone details so retailers <br className="hidden md:inline" /> know exactly what they&apos;re getting.
           </p>
 
-          {/* Weight inputs — 3 cols on desktop, stacked on mobile */}
-          <div className="flex flex-col md:flex-row md:gap-5 md:w-180 gap-4 mt-2">
-            <div className="w-full md:flex-1">
+          {/* Weight inputs — mobile: 2+1 grid | desktop: 3-col flex row */}
+          <div className="grid grid-cols-2 md:flex md:flex-row gap-2 md:gap-5 md:w-80 mt-2">
+            <div className="col-span-1 md:flex-1">
               <InputWithSuffix
                 id="grossWeight"
                 label="Gross Weight"
@@ -343,7 +334,7 @@ export function AddProductForm() {
                 onChange={(e) => setField("grossWeight", e.target.value)}
               />
             </div>
-            <div className="w-full md:flex-1">
+            <div className="col-span-1 md:flex-1">
               <InputWithSuffix
                 id="stoneWeight"
                 label="Stone Weight"
@@ -356,7 +347,7 @@ export function AddProductForm() {
                 onChange={(e) => setField("stoneWeight", e.target.value)}
               />
             </div>
-            <div className="w-full md:flex-1">
+            <div className="col-span-1 md:flex-1">
               <InputWithSuffix
                 id="netWeight"
                 label="Net Weight"
