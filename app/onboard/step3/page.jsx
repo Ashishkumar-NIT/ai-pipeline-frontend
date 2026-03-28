@@ -11,7 +11,7 @@ export default function OnboardStep3Page() {
       description="Upload your PAN and GST certificate so we can verify your business. This is a one-time process."
       backRoute="/onboard/step2"
     >
-      <div className="flex flex-col w-full max-w-[500px] mx-auto md:mx-0 md:ml-auto md:pr-4">
+      <div className="flex flex-col w-full max-w-[500px] mx-auto md:mx-0 mt-8 md:mt-0">
         <StepIndicator currentStep={3} totalSteps={3} />
         <Step3Container />
       </div>

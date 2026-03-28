@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { IdentityForm } from "./IdentityForm";
 import { AadharUpload } from "./AadharUpload";
-import { Step1Footer } from "./Step1Footer";
 
 export function Step1Container() {
   const [name, setName] = useState("");
@@ -11,30 +11,54 @@ export function Step1Container() {
   const [frontImage, setFrontImage] = useState(null);
   const [backImage, setBackImage] = useState(null);
   const [submitAttempted, setSubmitAttempted] = useState(false);
+  const router = useRouter();
 
   const isNameValid = name.trim().length > 0;
   const isAadharValid = aadhar.replace(/\s/g, '').length === 12;
   const isFormValid = isNameValid && isAadharValid && frontImage !== null && backImage !== null;
 
+  const handleNext = () => {
+    if (isFormValid) {
+      router.push('/onboard/step2');
+    } else {
+      setSubmitAttempted(true);
+    }
+  };
+
   return (
-    <div className="flex flex-col gap-8 w-full mt-10">
-      <IdentityForm 
-        name={name} setName={setName} 
-        aadhar={aadhar} setAadhar={setAadhar} 
-        submitAttempted={submitAttempted} 
-      />
-      
-      <AadharUpload 
-        frontImage={frontImage} setFrontImage={setFrontImage}
-        backImage={backImage} setBackImage={setBackImage}
+    <div className="flex flex-col gap-5 w-full mt-4">
+      <IdentityForm
+        name={name} setName={setName}
+        aadhar={aadhar} setAadhar={setAadhar}
         submitAttempted={submitAttempted}
       />
-      
-      <div className="mt-2 w-full">
-        <Step1Footer 
-          isFormValid={isFormValid} 
-          onSubmitAttempt={() => setSubmitAttempted(true)} 
+
+      <div className="w-full flex flex-col gap-2">
+        <AadharUpload
+          frontImage={frontImage} setFrontImage={setFrontImage}
+          backImage={backImage} setBackImage={setBackImage}
+          submitAttempted={submitAttempted}
         />
+
+        {/* Texts and Button aligned under the upload boxes perfectly */}
+        <div className="flex flex-col md:flex-row gap-[clamp(16px,2vw,32px)] w-full items-start">
+          <div className="flex-1 min-w-0 w-full md:w-auto">
+            <p className="text-[7px] md:text-[7px] text-black font-bold leading-relaxed pr-2">
+              *Your documents are encrypted and only used for verification.<br />
+              We never share them.
+            </p>
+          </div>
+          <div className="flex-1 w-full md:w-auto min-w-0 flex justify-end mt-2 md:mt-0">
+            <button
+              type="button"
+              onClick={handleNext}
+              disabled={!isFormValid}
+              className={`w-full md:w-[140px] font-extrabold rounded-[10px] px-4 py-[clamp(10px,1.2vw,14px)] text-[clamp(13px,1.4vw,15px)] transition-colors tracking-wide ${isFormValid ? 'bg-[#000000] text-white hover:bg-black/90 cursor-pointer' : 'bg-[#D1D5DB] text-white cursor-not-allowed'}`}
+            >
+              Next
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

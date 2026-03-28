@@ -11,7 +11,7 @@ export default function OnboardStep2Page() {
       description="This is how retailers will find and recognise you on the platform."
       backRoute="/onboard"
     >
-      <div className="flex flex-col w-full max-w-[500px] mx-auto md:mx-0 md:ml-auto md:pr-4">
+      <div className="flex flex-col w-full max-w-[500px] mx-auto md:mx-0 mt-8 md:mt-0">
         <StepIndicator currentStep={2} totalSteps={3} />
         <Step2Container />
       </div>

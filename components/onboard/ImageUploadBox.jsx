@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
 
-export function ImageUploadBox({ label, image, onUpload, onRemove, error, objectFit = "cover", accept = "image/jpeg, image/png, image/webp" }) {
+export function ImageUploadBox({ label, image, onUpload, onRemove, error, objectFit = "cover", accept = "image/jpeg, image/png, image/webp", aspectRatio = "aspect-square" }) {
   const inputRef = useRef(null);
   const [preview, setPreview] = useState(null);
 
@@ -25,23 +25,23 @@ export function ImageUploadBox({ label, image, onUpload, onRemove, error, object
   };
 
   const hasImage = !!image || !!preview;
-  const borderClass = hasImage 
-    ? "border-[2px] border-solid border-[#22C55E]" 
-    : error 
+  const borderClass = hasImage
+    ? "border-[2px] border-solid border-[#22C55E]"
+    : error
       ? "border-[1.5px] border-dashed border-[#EF4444]"
       : "border-[1.5px] border-dashed border-[#2563EB]";
 
-  const imageClassName = objectFit === "contain" 
-    ? "w-full h-full object-contain p-4" 
+  const imageClassName = objectFit === "contain"
+    ? "w-full h-full object-contain p-4"
     : "w-full h-full object-cover";
 
   return (
     <div className="flex flex-col gap-2 w-full">
       {label && <span className="text-[13px] font-semibold text-[#374151]">{label}</span>}
-      
-      <div 
+
+      <div
         onClick={() => { if (!hasImage && inputRef.current) inputRef.current.click() }}
-        className={`w-full bg-[#EEF4FF] rounded-[12px] hover:bg-blue-50 transition-colors cursor-pointer aspect-[1.4/1] relative overflow-hidden flex items-center justify-center ${borderClass}`}
+        className={`w-full bg-[#EEF4FF] rounded-[12px] hover:bg-blue-50 transition-colors cursor-pointer ${aspectRatio} relative overflow-hidden flex items-center justify-center ${borderClass}`}
       >
         {hasImage ? (
           <>
@@ -55,7 +55,7 @@ export function ImageUploadBox({ label, image, onUpload, onRemove, error, object
             ) : (
               <img src={preview} alt={label} className={imageClassName} />
             )}
-            <button 
+            <button
               type="button"
               onClick={(e) => {
                 e.preventDefault();
@@ -73,16 +73,16 @@ export function ImageUploadBox({ label, image, onUpload, onRemove, error, object
             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-[26px] h-[26px]"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
           </div>
         )}
-        
-        <input 
-          type="file" 
+
+        <input
+          type="file"
           ref={inputRef}
           accept={accept}
           className="hidden"
           onChange={handleFileChange}
         />
       </div>
-      
+
       {error && <span className="text-[12px] text-[#EF4444] mt-1">{error}</span>}
     </div>
   );

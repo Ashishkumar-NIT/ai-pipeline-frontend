@@ -17,27 +17,27 @@ export function IdentityForm({ name, setName, aadhar, setAadhar, submitAttempted
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full">
-      <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-6 w-84">
+      <div className="flex flex-col gap-1">
         <label htmlFor="name" className="text-[13px] font-semibold text-[#374151]">Name*</label>
-        <input 
+        <input
           id="name"
-          type="text" 
+          type="text"
           value={name}
           onChange={handleNameChange}
-          placeholder="Parash Rautela" 
+          placeholder="Parash Rautela"
           className={`w-full bg-[#F5F5F5] rounded-[8px] outline-none px-[clamp(10px,1.5vw,16px)] py-[clamp(8px,1.2vw,14px)] text-[clamp(13px,1.4vw,15px)] text-[#374151] placeholder:text-[#9CA3AF] transition-shadow ${isNameError ? 'border-[1.5px] border-[#EF4444]' : 'border-none focus:ring-2 focus:ring-black/10'}`}
         />
         {isNameError && <span className="text-[12px] text-[#EF4444]">Name is required</span>}
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1">
         <label htmlFor="aadhar" className="text-[13px] font-semibold text-[#374151]">Aadhar Number*</label>
-        <input 
+        <input
           id="aadhar"
-          type="text" 
+          type="text"
           value={aadhar}
           onChange={handleAadharChange}
-          placeholder="•••• •••• •••• ••••" 
+          placeholder="&#42;&#42;&#42;&#42; &#42;&#42;&#42;&#42; &#42;&#42;&#42;&#42;"
           className={`w-full bg-[#F5F5F5] rounded-[8px] outline-none px-[clamp(10px,1.5vw,16px)] py-[clamp(8px,1.2vw,14px)] text-[clamp(13px,1.4vw,15px)] text-[#374151] placeholder:text-[#9CA3AF] transition-shadow ${isAadharError ? 'border-[1.5px] border-[#EF4444]' : 'border-none focus:ring-2 focus:ring-black/10'}`}
         />
         {isAadharError && <span className="text-[12px] text-[#EF4444]">Enter a valid 12-digit Aadhar number</span>}
