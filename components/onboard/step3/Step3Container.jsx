@@ -13,13 +13,13 @@ export function Step3Container() {
 
   return (
     <div className="flex flex-col gap-8 w-full mt-10">
-      <DocumentUpload 
+      <DocumentUpload
         panFile={panFile} setPanFile={setPanFile}
         gstFile={gstFile} setGstFile={setGstFile}
         submitAttempted={submitAttempted}
       />
       <div className="mt-8 w-full">
-        <Step3Footer 
+        <Step3Footer
           isFormValid={isFormValid}
           onSubmitAttempt={() => setSubmitAttempted(true)}
         />

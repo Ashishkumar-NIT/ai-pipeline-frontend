@@ -1,4 +1,4 @@
-export function LeftPanel({ heading, description }) {
+export function LeftPanel({ heading, description, textMarginTop }) {
   return (
     <div className="flex flex-col items-center md:items-start gap-4 md:gap-[18px] w-full max-w-[320px]">
       <div className="flex items-center gap-3">
@@ -6,7 +6,7 @@ export function LeftPanel({ heading, description }) {
         <span className="text-[clamp(15px,1.6vw,18px)] font-extrabold text-[#111827] tracking-wide">Jewels India</span>
       </div>
 
-      <div className="flex flex-col gap-1">
+      <div className={`flex flex-col gap-1 ${textMarginTop || ''}`}>
         <h1 className="text-[clamp(16px,1.8vw,23px)] tracking-tight whitespace-nowrap leading-[1.2] font-extrabold text-[#111827]">
           {heading}
         </h1>
