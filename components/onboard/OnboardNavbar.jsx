@@ -1,14 +1,20 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { SignOutButton } from "../auth/SignOutButton";
+import { createClient } from "../../lib/supabase/client";
 
 export function OnboardNavbar({ backRoute }) {
   const router = useRouter();
 
+  const handleSignOut = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push('/signup');
+  };
+
   return (
     <header className="w-full bg-[#FFFFFF] border-b border-[#E0E0E0] px-[clamp(16px,3vw,48px)] py-[clamp(10px,1.5vw,20px)] flex items-center justify-between shadow-sm z-10">
-      <button 
-        onClick={() => router.push(backRoute || '/auth/signin')}
+      <button
+        onClick={() => router.push(backRoute || '/signup')}
         className="flex items-center gap-2 hover:bg-gray-100 transition-colors px-3 py-1.5 rounded-full"
       >
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-[clamp(14px,1.5vw,16px)] h-[clamp(14px,1.5vw,16px)] text-[#374151]">
@@ -17,12 +23,15 @@ export function OnboardNavbar({ backRoute }) {
         <span className="text-[#374151] font-medium text-[clamp(12px,1.4vw,14px)] tracking-wide">Back</span>
       </button>
 
-      <SignOutButton className="flex items-center gap-2 hover:bg-gray-100 transition-colors px-3 py-1.5 rounded-full text-[#374151] font-medium text-[clamp(12px,1.4vw,14px)] tracking-wide">
+      <button
+        onClick={handleSignOut}
+        className="flex items-center gap-2 hover:bg-gray-100 transition-colors px-3 py-1.5 rounded-full text-[#374151] font-medium text-[clamp(12px,1.4vw,14px)] tracking-wide cursor-pointer"
+      >
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-[clamp(14px,1.5vw,16px)] h-[clamp(14px,1.5vw,16px)] text-[#374151]">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
         </svg>
         Sign out
-      </SignOutButton>
+      </button>
     </header>
   );
 }
