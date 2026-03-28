@@ -14,6 +14,7 @@ export function BusinessLogoUpload({ logoImage, setLogoImage, submitAttempted })
         onRemove={() => setLogoImage(null)}
         error={error ? "Please upload your business logo" : null}
         objectFit="contain"
+        aspectRatio="aspect-square"
       />
     </div>
   );

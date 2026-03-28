@@ -2,16 +2,16 @@
 import { useEffect } from "react";
 
 const INDIAN_STATES = [
-  "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", 
-  "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", 
-  "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", 
-  "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", 
+  "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa",
+  "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala",
+  "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland",
+  "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura",
   "Uttar Pradesh", "Uttarakhand", "West Bengal"
 ];
 
 const CITY_MAP = {
   "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Nashik", "Thane"],
-  "Delhi": ["New Delhi", "North Delhi", "South Delhi"],
+  "Delhi": ["NewDelhi", "NorthDelhi", "SouthDelhi"],
   "Karnataka": ["Bangalore", "Mysore", "Hubli", "Mangalore"],
   "Gujarat": ["Ahmedabad", "Surat", "Vadodara", "Rajkot"],
   "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Tiruchirappalli"],
@@ -28,12 +28,12 @@ function getCitiesByState(state) {
   return CITY_MAP[state] || [`${state} City 1`, `${state} City 2`, `${state} City 3`];
 }
 
-export function BusinessForm({ 
-  businessName, setBusinessName, 
-  selectedState, setSelectedState, 
-  selectedCity, setSelectedCity, 
+export function BusinessForm({
+  businessName, setBusinessName,
+  selectedState, setSelectedState,
+  selectedCity, setSelectedCity,
   cities, setCities,
-  submitAttempted 
+  submitAttempted
 }) {
   const isNameError = submitAttempted && businessName.trim().length < 2;
   const isStateError = submitAttempted && selectedState === "";
@@ -48,19 +48,23 @@ export function BusinessForm({
 
   return (
     <div className="flex flex-col gap-[clamp(16px,2vw,24px)] w-full">
-      <div className="flex flex-col gap-2">
-        <label htmlFor="businessName" className="text-[13px] font-semibold text-[#374151]">Business name*</label>
-        <input 
-          id="businessName"
-          type="text" 
-          value={businessName}
-          onChange={(e) => setBusinessName(e.target.value)}
-          placeholder="Pc jewellers"
-          className={`w-full bg-[#F5F5F5] rounded-[8px] outline-none px-[clamp(10px,1.5vw,16px)] py-[clamp(8px,1.2vw,14px)] text-[clamp(13px,1.4vw,15px)] text-[#374151] placeholder:text-[#9CA3AF] transition-shadow ${isNameError ? 'border-[1.5px] border-[#EF4444]' : 'border-none focus:ring-2 focus:ring-black/10'}`}
-        />
-        {isNameError && <span className="text-[12px] text-[#EF4444]">Business name is required</span>}
+      <div className="flex flex-row gap-[clamp(8px,1.5vw,24px)] w-full">
+        <div className="w-full md:w-[58%] md:flex-none flex flex-col gap-2 min-w-0">
+          <label htmlFor="businessName" className="text-[13px] font-semibold text-[#374151]">Business name*</label>
+          <input
+            id="businessName"
+            type="text"
+            value={businessName}
+            onChange={(e) => setBusinessName(e.target.value)}
+            placeholder="Pc jewellers"
+            className={`w-full bg-[#F5F5F5] rounded-[8px] outline-none px-[clamp(10px,1.5vw,16px)] py-[clamp(8px,1.2vw,14px)] text-[clamp(13px,1.4vw,15px)] text-[#374151] placeholder:text-[#9CA3AF] transition-shadow ${isNameError ? 'border-[1.5px] border-[#EF4444]' : 'border-none focus:ring-2 focus:ring-black/10'}`}
+          />
+          {isNameError && <span className="text-[12px] text-[#EF4444]">Business name is required</span>}
+        </div>
+        {/* Empty column to force Business Name to stop at precise horizontal threshold */}
+        <div className="flex-1 min-w-0 hidden md:block"></div>
       </div>
-      
+
       <div className="flex flex-row gap-[clamp(8px,1.5vw,24px)] w-full">
         <div className="flex-1 flex flex-col gap-2 min-w-0">
           <label htmlFor="state" className="text-[13px] font-semibold text-[#374151]">State*</label>
