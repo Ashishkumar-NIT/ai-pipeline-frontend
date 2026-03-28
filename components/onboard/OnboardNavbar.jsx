@@ -5,6 +5,12 @@ import { createClient } from "../../lib/supabase/client";
 export function OnboardNavbar({ backRoute }) {
   const router = useRouter();
 
+  const handleBack = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push(backRoute || '/signup');
+  };
+
   const handleSignOut = async () => {
     const supabase = createClient();
     await supabase.auth.signOut();
@@ -14,7 +20,7 @@ export function OnboardNavbar({ backRoute }) {
   return (
     <header className="w-full bg-[#FFFFFF] border-b border-[#E0E0E0] px-[clamp(16px,3vw,48px)] py-[clamp(10px,1.5vw,20px)] flex items-center justify-between shadow-sm z-10">
       <button
-        onClick={() => router.push(backRoute || '/signup')}
+        onClick={handleBack}
         className="flex items-center gap-2 hover:bg-gray-100 transition-colors px-3 py-1.5 rounded-full"
       >
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-[clamp(14px,1.5vw,16px)] h-[clamp(14px,1.5vw,16px)] text-[#374151]">
