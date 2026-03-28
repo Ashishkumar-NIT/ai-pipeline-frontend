@@ -5,7 +5,7 @@ export function SubmittedFooter() {
   const router = useRouter();
 
   return (
-    <div className="w-full flex flex-col md:flex-row items-center justify-between gap-6 md:gap-0 pt-6 border-t border-[#E0E0E0] mt-8">
+    <div className="w-full flex flex-col md:flex-row items-center justify-between gap-6 md:gap-0 pt-6 mt-8">
       <div className="text-[13px] text-center md:text-left flex flex-col gap-1">
         <span className="text-[#9CA3AF]">Need help in the meantime? Call us on</span>
         <div>
