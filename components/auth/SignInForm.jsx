@@ -1,114 +1,146 @@
 "use client";
 
-import { useState } from "react";
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
+import { useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "../ui/Button";
-import { Input } from "../ui/Input";
-import { GoogleButton } from "../ui/GoogleButton";
-import { signIn, signInWithGoogle } from "../../lib/actions/auth";
+import { signIn } from "../../lib/actions/auth";
 
+/**
+ * SignInForm — for EXISTING users only.
+ * Reached via redirect from the entry page after a DB check confirms the user exists.
+ * Pre-fills the identity (email/phone) from URL param or sessionStorage.
+ * No Google auth (handled on the entry page).
+ */
 export function SignInForm() {
   const searchParams = useSearchParams();
+  const router = useRouter();
+
   const urlError = searchParams.get("error");
+  const urlIdentity = searchParams.get("identity");
+
   let decodedUrlError = null;
   if (urlError) {
-    try {
-      decodedUrlError = decodeURIComponent(urlError);
-    } catch {
-      decodedUrlError = urlError;
-    }
+    try { decodedUrlError = decodeURIComponent(urlError); }
+    catch { decodedUrlError = urlError; }
   }
+
   const [error, setError] = useState(decodedUrlError);
   const [loading, setLoading] = useState(false);
+  const [identity, setIdentity] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Restore identity from URL param or sessionStorage
+  useEffect(() => {
+    if (urlIdentity) {
+      setIdentity(decodeURIComponent(urlIdentity));
+      return;
+    }
+    const stored = sessionStorage.getItem("auth_identity");
+    if (stored) setIdentity(stored);
+  }, [urlIdentity]);
+
+  // If no identity at all, redirect back to entry
+  useEffect(() => {
+    if (!urlIdentity) {
+      const stored = sessionStorage.getItem("auth_identity");
+      if (!stored) {
+        router.replace("/signup");
+      }
+    }
+  }, [urlIdentity, router]);
 
   async function handleSubmit(e) {
     e.preventDefault();
     setError(null);
     setLoading(true);
-    const result = await signIn(new FormData(e.target));
+
+    const formData = new FormData(e.target);
+    // Inject the identity as email (server action uses "email" field)
+    formData.set("email", identity);
+
+    const result = await signIn(formData);
     if (result?.error) {
       setError(result.error);
       setLoading(false);
     }
-  }
-
-  async function handleGoogle() {
-    setError(null);
-    const result = await signInWithGoogle();
-    if (result?.error) setError(result.error);
+    // On success, signIn server action redirects to /dashboard/wholesaler
   }
 
   return (
-    <form className="mt-12 space-y-8" onSubmit={handleSubmit}>
-      <div className="space-y-6">
-        <Input
-          id="email"
-          name="email"
-          label="Your email"
-          type="email"
-          placeholder="Enter your email"
-          required
-        />
-        <Input
-          id="password"
-          name="password"
-          label="Password"
-          type="password"
-          placeholder="Enter your password"
-          required
-        />
+    <form className="mt-10 space-y-8" onSubmit={handleSubmit}>
+      {/* Identity display — read only, shows who is signing in */}
+      <div className="flex flex-col gap-2">
+        <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-celestique-dark/60">
+          Signing in as
+        </label>
+        <div className="flex items-center justify-between h-14 border-b-2 border-celestique-dark/20">
+          <span className="text-[15px] text-celestique-dark font-light tracking-wide truncate">
+            {identity}
+          </span>
+          <button
+            type="button"
+            onClick={() => {
+              sessionStorage.removeItem("auth_identity");
+              router.replace("/signup");
+            }}
+            className="shrink-0 ml-3 text-[9px] uppercase tracking-widest text-celestique-dark/40 hover:text-celestique-dark transition-colors border-b border-transparent hover:border-celestique-dark/40"
+          >
+            Change
+          </button>
+        </div>
       </div>
 
-      <div className="flex items-center justify-between">
-        <div className="flex items-center">
+      {/* Password */}
+      <div className="flex flex-col gap-2">
+        <label
+          htmlFor="password"
+          className="text-[10px] uppercase tracking-[0.2em] font-bold text-celestique-dark/60"
+        >
+          Password
+        </label>
+        <div className="relative">
           <input
-            id="remember-me"
-            name="remember-me"
-            type="checkbox"
-            className="h-4 w-4 rounded-none border-celestique-taupe text-celestique-dark focus:ring-celestique-dark bg-transparent"
+            id="password"
+            name="password"
+            type={showPassword ? "text" : "password"}
+            placeholder="Enter your password"
+            autoFocus
+            required
+            className="h-14 w-full border-b-2 bg-transparent border-celestique-taupe px-0 pr-12 text-[15px] text-celestique-dark placeholder:text-celestique-dark/30 focus:outline-none focus:border-celestique-dark transition-colors duration-300 font-light tracking-wide"
+            autoComplete="current-password"
           />
-          <label htmlFor="remember-me" className="ml-3 block text-[10px] uppercase tracking-[0.2em] text-celestique-dark/60">
-            Remember me
-          </label>
-        </div>
-        <div className="text-[10px] uppercase tracking-[0.2em]">
-          <Link href="#" className="text-celestique-dark/60 hover:text-celestique-dark transition-colors">
-            Forgot password?
-          </Link>
+          <button
+            type="button"
+            onClick={() => setShowPassword((v) => !v)}
+            className="absolute right-0 top-1/2 -translate-y-1/2 text-[9px] uppercase tracking-widest text-celestique-dark/40 hover:text-celestique-dark transition-colors"
+            tabIndex={-1}
+          >
+            {showPassword ? "Hide" : "Show"}
+          </button>
         </div>
       </div>
 
+      {/* Forgot password */}
+      <div className="text-right -mt-4">
+        <button
+          type="button"
+          className="text-[9px] uppercase tracking-[0.2em] text-celestique-dark/40 border-b border-celestique-dark/20 pb-0.5 hover:text-celestique-dark hover:border-celestique-dark transition-colors"
+        >
+          Forgot password?
+        </button>
+      </div>
+
+      {/* Error */}
       {error && (
-        <p className="text-[10px] uppercase tracking-[0.1em] text-red-600 bg-red-50 border border-red-200 px-4 py-3">
-          {error}
-        </p>
+        <div className="flex items-start gap-2 animate-fade-in">
+          <span className="shrink-0 w-1 h-1 rounded-full bg-red-500 mt-1.5" />
+          <p className="text-[10px] uppercase tracking-widest text-red-600">{error}</p>
+        </div>
       )}
 
-      <Button type="submit" variant="primary" loading={loading}>
+      <Button type="submit" variant="primary" loading={loading} id="signin-btn">
         Sign In
       </Button>
-
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-celestique-taupe" />
-        </div>
-        <div className="relative flex justify-center text-[10px] uppercase tracking-[0.2em]">
-          <span className="bg-celestique-cream px-4 text-celestique-dark/40">OR</span>
-        </div>
-      </div>
-
-      <GoogleButton onClick={handleGoogle} text="Sign in with Google" />
-
-      <p className="mt-8 text-center text-[10px] uppercase tracking-[0.2em] text-celestique-dark/60">
-        Don&apos;t have an account?{" "}
-        <Link
-          href="/signup"
-          className="text-celestique-dark border-b border-celestique-dark pb-0.5 hover:text-celestique-dark/60 hover:border-celestique-dark/60 transition-colors ml-2"
-        >
-          SIGN UP
-        </Link>
-      </p>
     </form>
   );
 }

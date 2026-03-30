@@ -1,5 +1,5 @@
 import Image from "next/image";
-import UploadButton from "@/components/wholesaler/UploadButton";
+import UploadButton from "./UploadButton";
 
 export default function HeroUploadSection() {
   return (

@@ -1,20 +1,20 @@
 import { Suspense } from "react";
 import { AuthLayout } from "../../components/auth/AuthLayout";
-import { SignUpForm } from "../../components/auth/SignUpForm";
+import { EntryForm } from "../../components/auth/EntryForm";
 
 export const metadata = {
-  title: "Sign Up — Celestique",
+  title: "Get Started — Celestique",
 };
 
 export default function SignUpPage() {
   return (
     <AuthLayout
-      title="Create an account"
-      subtitle="Showcase your designs, connect with verified retailers, and expand your business with confidence."
-      imageSrc="https://res.cloudinary.com/dsjjdnife/image/upload/v1771612613/101_k2qsju.png"
+      title="Join Celestique"
+      subtitle="Enter your email to get started. We'll check if you already have an account."
+      imageSrc="https://res.cloudinary.com/dcs0vuzwg/image/upload/v1774883373/authImg_ivftu7.png"
     >
       <Suspense>
-        <SignUpForm />
+        <EntryForm />
       </Suspense>
     </AuthLayout>
   );

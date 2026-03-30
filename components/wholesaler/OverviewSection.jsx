@@ -1,4 +1,4 @@
-import { TopStatCard, BottomStatCard } from "@/components/wholesaler/StatCard";
+import { TopStatCard, BottomStatCard } from "./StatCard";
 
 function QueryIcon() {
   return (

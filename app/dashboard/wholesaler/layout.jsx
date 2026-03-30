@@ -1,4 +1,4 @@
-import Footer from "@/components/wholesaler/Footer";
+import Footer from "../../../components/wholesaler/Footer";
 
 export const metadata = {
   title: "Wholesaler Dashboard",

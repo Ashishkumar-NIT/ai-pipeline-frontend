@@ -1,16 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import { useOnboard } from "../../../context/OnboardContext";
 import { BusinessForm } from "./BusinessForm";
 import { BusinessLogoUpload } from "./BusinessLogoUpload";
 import { Step2Footer } from "./Step2Footer";
 
 export function Step2Container() {
-  const [businessName, setBusinessName] = useState("");
-  const [selectedState, setSelectedState] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
-  const [cities, setCities] = useState([]);
-  const [logoImage, setLogoImage] = useState(null);
+  const {
+    businessName, setBusinessName,
+    selectedState, setSelectedState,
+    selectedCity, setSelectedCity,
+    cities, setCities,
+    logoImage, setLogoImage,
+  } = useOnboard();
+
   const [submitAttempted, setSubmitAttempted] = useState(false);
 
   const isFormValid =

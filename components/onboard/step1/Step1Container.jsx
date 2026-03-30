@@ -2,14 +2,18 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useOnboard } from "../../../context/OnboardContext";
 import { IdentityForm } from "./IdentityForm";
 import { AadharUpload } from "./AadharUpload";
 
 export function Step1Container() {
-  const [name, setName] = useState("");
-  const [aadhar, setAadhar] = useState("");
-  const [frontImage, setFrontImage] = useState(null);
-  const [backImage, setBackImage] = useState(null);
+  const {
+    name, setName,
+    aadhar, setAadhar,
+    frontImage, setFrontImage,
+    backImage, setBackImage,
+  } = useOnboard();
+
   const [submitAttempted, setSubmitAttempted] = useState(false);
   const router = useRouter();
 

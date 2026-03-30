@@ -1,5 +1,5 @@
-import { categories } from "@/lib/config/catalogueCategories";
-import CategoryCard from "@/components/wholesaler/CategoryCard";
+import { categories } from "../../lib/config/catalogueCategories";
+import CategoryCard from "./CategoryCard";
 
 export default function CatalogueSection() {
   return (
