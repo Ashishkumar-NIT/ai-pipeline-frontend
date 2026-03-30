@@ -6,6 +6,7 @@ export async function GET(request) {
   const { searchParams, origin } = new URL(request.url);
   const code  = searchParams.get("code");
   const oauthError = searchParams.get("error");
+  const mode = searchParams.get("mode");
 
   if (oauthError) {
     const description = searchParams.get("error_description") ?? oauthError;
@@ -23,6 +24,27 @@ export async function GET(request) {
         data: { user },
       } = await supabase.auth.getUser();
 
+      // Entry page flow
+      if (mode === "entry") {
+        // Check if user exists in profiles table
+        if (user) {
+          const { data: profile } = await supabase
+            .from("profiles")
+            .select("id")
+            .eq("id", user.id)
+            .maybeSingle();
+
+          if (profile) {
+            // User exists → navigate to dashboard/wholesaler
+            return NextResponse.redirect(`${origin}/dashboard/wholesaler`);
+          } else {
+            // User does not exist → navigate to onboard
+            return NextResponse.redirect(`${origin}/onboard`);
+          }
+        }
+      }
+
+      // Regular flow (non-entry page)
       // Try metadata first (fastest — from JWT)
       let role = user?.user_metadata?.role;
 

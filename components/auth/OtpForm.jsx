@@ -9,7 +9,7 @@ const RESEND_COOLDOWN_SECONDS = 30; // wait between resends
 const MAX_RESENDS = 5;
 
 /**
- * OtpForm — 6-digit OTP entry with:
+ * OtpForm — 8-digit OTP entry with:
  * - Box-per-digit input
  * - 60s countdown (OTP validity) — disappears on wrong OTP
  * - 30s resend cooldown
@@ -18,7 +18,7 @@ const MAX_RESENDS = 5;
  */
 export function OtpForm() {
   const router = useRouter();
-  const [digits, setDigits] = useState(["", "", "", "", "", ""]);
+  const [digits, setDigits] = useState(["", "", "", "", "", "", "", ""]);
   const [verifying, setVerifying] = useState(false);
   const [resending, setResending] = useState(false);
   const [error, setError] = useState(null);
@@ -138,7 +138,7 @@ export function OtpForm() {
     setError(null);
     setIsWrongOtp(false);
 
-    if (char && index < 5) {
+    if (char && index < 7) {
       inputRefs.current[index + 1]?.focus();
     }
   }
@@ -148,19 +148,19 @@ export function OtpForm() {
       inputRefs.current[index - 1]?.focus();
     }
     if (e.key === "ArrowLeft" && index > 0) inputRefs.current[index - 1]?.focus();
-    if (e.key === "ArrowRight" && index < 5) inputRefs.current[index + 1]?.focus();
+    if (e.key === "ArrowRight" && index < 7) inputRefs.current[index + 1]?.focus();
   }
 
   function handlePaste(e) {
     e.preventDefault();
-    const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 6);
+    const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 8);
     if (!pasted) return;
     const next = [...digits];
     pasted.split("").forEach((char, i) => {
-      if (i < 6) next[i] = char;
+      if (i < 8) next[i] = char;
     });
     setDigits(next);
-    const lastFilledIndex = Math.min(pasted.length, 5);
+    const lastFilledIndex = Math.min(pasted.length, 7);
     inputRefs.current[lastFilledIndex]?.focus();
   }
 
@@ -168,8 +168,8 @@ export function OtpForm() {
   async function handleVerify(e) {
     e.preventDefault();
     const token = digits.join("");
-    if (token.length !== 6) {
-      setError("Please enter the complete 6-digit code.");
+    if (token.length !== 8) {
+      setError("Please enter the complete 8-digit code.");
       return;
     }
     if (!identity) {
@@ -192,7 +192,7 @@ export function OtpForm() {
       setShowStopwatch(false); // stopwatch disappears on wrong OTP
       clearInterval(otpTimerRef.current);
       setError(data.error || "Invalid OTP. Please try again or resend.");
-      setDigits(["", "", "", "", "", ""]);
+      setDigits(["", "", "", "", "", "", "", ""]);
       inputRefs.current[0]?.focus();
       setVerifying(false);
       return;
@@ -241,7 +241,7 @@ export function OtpForm() {
     setOtpSecondsLeft(OTP_VALIDITY_SECONDS);
     setShowStopwatch(true);
     setIsWrongOtp(false);
-    setDigits(["", "", "", "", "", ""]);
+    setDigits(["", "", "", "", "", "", "", ""]);
     inputRefs.current[0]?.focus();
 
     // Start resend cooldown
@@ -250,7 +250,7 @@ export function OtpForm() {
     setResending(false);
   }
 
-  const otpComplete = digits.every(Boolean);
+  const otpComplete = digits.every(Boolean) && digits.length === 8;
   const isLocked = !!lockedUntil && new Date() < new Date(lockedUntil);
 
   return (
