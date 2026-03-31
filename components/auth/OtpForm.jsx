@@ -35,6 +35,7 @@ export function OtpForm() {
 
   // Identity from sessionStorage
   const [identity, setIdentity] = useState(null);
+  const [isPhoneIdentity, setIsPhoneIdentity] = useState(false);
 
   const inputRefs = useRef([]);
   const otpTimerRef = useRef(null);
@@ -54,6 +55,7 @@ export function OtpForm() {
     }
 
     setIdentity(storedIdentity);
+    setIsPhoneIdentity(/^\+\d{10,15}$/.test(storedIdentity)); // detect phone vs email
 
     if (storedLockedUntil) {
       const lockDate = new Date(storedLockedUntil);
@@ -198,8 +200,12 @@ export function OtpForm() {
       return;
     }
 
-    // Success — go to set-password
-    router.push("/entry_page/signup/set-password");
+    // Success — route based on user status
+    if (data.isNewUser) {
+      router.push("/entry_page/signup/set-password");
+    } else {
+      router.push("/dashboard/wholesaler");
+    }
   }
 
   // ── Resend OTP ─────────────────────────────────────────────────────────────
@@ -321,7 +327,7 @@ export function OtpForm() {
             <span className="shrink-0 w-1 h-1 rounded-full bg-red-500 mt-1.5" />
             <p className="text-[10px] uppercase tracking-[0.1em] text-red-600 leading-relaxed">
               {isWrongOtp
-                ? "Wrong OTP — try resend or check your email for the correct code."
+                ? `Wrong OTP — try resending or check your ${isPhoneIdentity ? 'SMS messages' : 'email'} for the correct code.`
                 : error}
             </p>
           </div>

@@ -1,6 +1,9 @@
 import { supabaseAdmin } from "../../../../lib/supabase/admin.js";
 import { NextResponse } from "next/server";
 
+// Force Node.js runtime — required for formData() + file buffer handling
+export const runtime = "nodejs";
+
 export async function POST(req) {
   try {
     // Read access token from Authorization header

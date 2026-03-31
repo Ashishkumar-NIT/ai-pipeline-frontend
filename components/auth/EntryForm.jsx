@@ -27,12 +27,36 @@ export function EntryForm() {
     setError(null);
     setLoading(true);
 
+    let normalizedIdentity = identity.trim();
+    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedIdentity);
+
+    if (!isEmail) {
+      // It's a phone. Strip all non-digit and non-plus chars
+      let phoneNum = normalizedIdentity.replace(/[^\d+]/g, '');
+      
+      // Auto-append +91 for 10-digit Indian numbers
+      if (/^\d{10}$/.test(phoneNum)) {
+        phoneNum = '+91' + phoneNum;
+      } else if (/^91\d{10}$/.test(phoneNum)) {
+        phoneNum = '+' + phoneNum;
+      } else if (!phoneNum.startsWith('+')) {
+        phoneNum = '+' + phoneNum;
+      }
+
+      if (phoneNum.length < 10 || phoneNum.length > 16) {
+        setError("Please enter a valid 10-digit mobile number.");
+        setLoading(false);
+        return;
+      }
+      normalizedIdentity = phoneNum;
+    }
+
     try {
       // Step 1: Check if user exists
       const checkRes = await fetch("/api/auth/check-user", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ identity: identity.trim() }),
+        body: JSON.stringify({ identity: normalizedIdentity }),
       });
       const checkData = await checkRes.json();
 
@@ -44,18 +68,8 @@ export function EntryForm() {
 
       if (checkData.exists) {
         // Existing user — go to login page with identity pre-filled
-        sessionStorage.setItem("auth_identity", identity.trim());
-        router.push(`/entry_page/signin?identity=${encodeURIComponent(identity.trim())}`);
-        return;
-      }
-
-      // New user — check if email (phone OTP not yet configured)
-      const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(identity.trim());
-      if (!isEmail) {
-        setError(
-          "Phone OTP is not yet available. Please sign up with your email address."
-        );
-        setLoading(false);
+        sessionStorage.setItem("auth_identity", normalizedIdentity);
+        router.push(`/entry_page/signin?identity=${encodeURIComponent(normalizedIdentity)}`);
         return;
       }
 
@@ -63,7 +77,7 @@ export function EntryForm() {
       const otpRes = await fetch("/api/auth/send-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ identity: identity.trim() }),
+        body: JSON.stringify({ identity: normalizedIdentity }),
       });
       const otpData = await otpRes.json();
 
@@ -74,7 +88,7 @@ export function EntryForm() {
       }
 
       // Store identity + OTP send timestamp for the OTP page
-      sessionStorage.setItem("auth_identity", identity.trim());
+      sessionStorage.setItem("auth_identity", normalizedIdentity);
       sessionStorage.setItem("otp_sent_at", new Date().toISOString());
 
       router.push("/entry_page/signup/verify-otp");

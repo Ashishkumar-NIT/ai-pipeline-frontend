@@ -126,16 +126,17 @@ language plpgsql
 security definer set search_path = public
 as $$
 begin
-  -- Only auto-insert profile when a role was provided (email signup)
-  if new.raw_user_meta_data->>'role' is not null then
-    insert into public.profiles (id, email, role)
-    values (
-      new.id,
-      new.email,
-      new.raw_user_meta_data->>'role'
-    )
-    on conflict (id) do nothing;
-  end if;
+  -- Auto-insert profile for all signups.
+  -- If role is provided in metadata (e.g., from an invite), use it.
+  -- Otherwise, default to 'wholesaler' for public OTP signups.
+  insert into public.profiles (id, email, role)
+  values (
+    new.id,
+    new.email,
+    COALESCE(new.raw_user_meta_data->>'role', 'wholesaler')
+  )
+  on conflict (id) do nothing;
+  
   return new;
 end;
 $$;

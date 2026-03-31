@@ -20,20 +20,26 @@ export async function POST(request) {
     const normalized = identity.trim().toLowerCase();
     const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalized);
 
-    if (!isEmail) {
-      return NextResponse.json(
-        { error: "Phone OTP verification is not yet supported." },
-        { status: 400 }
-      );
-    }
-
     const supabase = await createClient();
 
-    const { data, error } = await supabase.auth.verifyOtp({
-      email: normalized,
-      token: token.trim(),
-      type: "email",
-    });
+    let data, error;
+    if (isEmail) {
+      const resp = await supabase.auth.verifyOtp({
+        email: normalized,
+        token: token.trim(),
+        type: "email",
+      });
+      data = resp.data;
+      error = resp.error;
+    } else {
+      const resp = await supabase.auth.verifyOtp({
+        phone: normalized,
+        token: token.trim(),
+        type: "sms",
+      });
+      data = resp.data;
+      error = resp.error;
+    }
 
     if (error) {
       console.error("[verify-otp] Supabase error:", error);
@@ -43,7 +49,16 @@ export async function POST(request) {
       );
     }
 
-    return NextResponse.json({ success: true, userId: data.user?.id });
+    // Check if the user is completely new (has no role assigned yet).
+    // A returning user will have 'wholesaler' or 'retailer' set from the SetPassword logic or an invite.
+    const userRole = data.user?.user_metadata?.role;
+    const isNewUser = !userRole;
+
+    return NextResponse.json({ 
+      success: true, 
+      userId: data.user?.id,
+      isNewUser 
+    });
   } catch (err) {
     console.error("[verify-otp] unexpected error:", err);
     return NextResponse.json({ error: "Server error. Please try again." }, { status: 500 });

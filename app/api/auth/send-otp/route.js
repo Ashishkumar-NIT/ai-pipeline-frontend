@@ -26,14 +26,6 @@ export async function POST(request) {
     const normalized = identity.trim().toLowerCase();
     const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalized);
 
-    if (!isEmail) {
-      // Phone OTP requires Twilio setup in Supabase — not yet configured
-      return NextResponse.json(
-        { error: "Phone OTP is not yet configured. Please use an email address." },
-        { status: 400 }
-      );
-    }
-
     // ── Rate limit check ─────────────────────────────────────────────────────
     const { data: rateLimit, error: rlFetchError } = await supabaseAdmin
       .from("otp_rate_limits")
@@ -103,12 +95,21 @@ export async function POST(request) {
 
     // ── Send OTP via Supabase ────────────────────────────────────────────────
     const supabase = await createClient();
-    const { error: otpError } = await supabase.auth.signInWithOtp({
-      email: normalized,
-      options: {
-        shouldCreateUser: true, // creates the user in Supabase if they don't exist
-      },
-    });
+    
+    let otpError;
+    if (isEmail) {
+      const resp = await supabase.auth.signInWithOtp({
+        email: normalized,
+        options: { shouldCreateUser: true },
+      });
+      otpError = resp.error;
+    } else {
+      const resp = await supabase.auth.signInWithOtp({
+        phone: normalized,
+        options: { shouldCreateUser: true },
+      });
+      otpError = resp.error;
+    }
 
     if (otpError) {
       console.error("[send-otp] Supabase error:", otpError);
