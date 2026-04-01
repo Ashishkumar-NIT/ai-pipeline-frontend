@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { categories } from "../../lib/config/catalogueCategories";
 import CategoryCard from "./CategoryCard";
 
@@ -22,16 +23,18 @@ export default function CatalogueSection() {
           ))}
 
           {/* View All card */}
-          <div className="group flex w-[280px] h-[339px] cursor-pointer items-center justify-center rounded-xl border-2 border-dashed border-celestique-border bg-white hover:border-celestique-dark hover:bg-celestique-cream transition-all duration-200">
-            <div className="text-center">
-              <p className="text-3xl text-celestique-muted group-hover:text-celestique-dark transition-colors duration-200">
-                →
-              </p>
-              <p className="mt-1 text-sm font-gilroy font-medium text-celestique-muted group-hover:text-celestique-dark transition-colors duration-200">
-                View All
-              </p>
+          <Link href="/dashboard/wholesaler/catalogue" className="block">
+            <div className="group flex w-[280px] h-[339px] cursor-pointer items-center justify-center rounded-xl border-2 border-dashed border-celestique-border bg-white hover:border-celestique-dark hover:bg-celestique-cream transition-all duration-200">
+              <div className="text-center">
+                <p className="text-3xl text-celestique-muted group-hover:text-celestique-dark transition-colors duration-200">
+                  →
+                </p>
+                <p className="mt-1 text-sm font-gilroy font-medium text-celestique-muted group-hover:text-celestique-dark transition-colors duration-200">
+                  View All
+                </p>
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
     </section>

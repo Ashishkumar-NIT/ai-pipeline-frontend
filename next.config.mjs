@@ -27,6 +27,25 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/entry_page/signin',
+        permanent: false,
+      },
+      {
+        source: '/signin',
+        destination: '/entry_page/signin',
+        permanent: true,
+      },
+      {
+        source: '/signup',
+        destination: '/entry_page/signup',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default withSentryConfig(nextConfig, {

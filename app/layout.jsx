@@ -35,6 +35,7 @@ export default async function RootLayout({ children }) {
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet" />
       </head>
       <body
+        suppressHydrationWarning
         className={`${bodoni.variable} ${jost.variable} ${manrope.variable} font-sans antialiased text-celestique-dark`}
       >
         <AuthProvider initialUser={initialUser}>
